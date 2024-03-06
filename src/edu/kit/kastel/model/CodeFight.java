@@ -218,6 +218,7 @@ public class CodeFight {
         }
     }
 
+
     /**
      * Sets if the game is in playing phase or not.
      *

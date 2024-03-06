@@ -1,7 +1,9 @@
 package edu.kit.kastel.ui.command.playing;
 
 import edu.kit.kastel.model.CodeFight;
+import edu.kit.kastel.model.CyclicLinkedList;
 import edu.kit.kastel.model.ai.AI;
+import edu.kit.kastel.model.memory.MemoryCell;
 import edu.kit.kastel.ui.command.Command;
 import edu.kit.kastel.ui.command.CommandResult;
 import edu.kit.kastel.ui.command.CommandResultType;
@@ -54,6 +56,11 @@ public class EndGameCommand implements Command {
             );
 
         }
+        clearAIsInMemory(
+                model.getMemory(),
+                model.getRunningAI(),
+                model.getMemoryDefaultSymbol()
+        );
         model.setPlayingPhase(false);
         model.getPlayingList().clear();
         model.getStoppedAIList().clear();
@@ -91,6 +98,22 @@ public class EndGameCommand implements Command {
         return sb.toString();
     }
 
+
+    private void clearAIsInMemory(
+            CyclicLinkedList<MemoryCell> memory,
+            CyclicLinkedList<AI> runningAIList,
+            String defaultDisplaySymbol
+    ) {
+        for (int i = 0; i < memory.size(); i++) {
+            memory.get(i).setCurrentSymbol(defaultDisplaySymbol);
+            memory.get(i).setDefaultSymbol(defaultDisplaySymbol);
+        }
+
+        for (int i = 0; i < runningAIList.size(); i++) {
+            runningAIList.get(i).resetAIPositions();
+            runningAIList.get(i).resetStepsExecuted();
+        }
+    }
 
     /**
      * Returns the number of arguments that the command expects.
