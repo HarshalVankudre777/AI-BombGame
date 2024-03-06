@@ -1,8 +1,11 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.initialization;
 
 import edu.kit.kastel.model.ai.AI;
 import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.memory.MemoryCell;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +45,6 @@ public class StartGameCommand implements Command {
      */
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
-
         if (model.isPlayingPhase()) {
             return new CommandResult(CommandResultType.FAILURE, GAME_HAS_ALREADY_STARTED_ERROR);
         }

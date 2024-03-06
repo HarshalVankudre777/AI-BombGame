@@ -1,8 +1,15 @@
 package edu.kit.kastel.ui.command;
 
 
-
 import edu.kit.kastel.model.CodeFight;
+import edu.kit.kastel.ui.command.initialization.AddAICommand;
+import edu.kit.kastel.ui.command.initialization.RemoveAICommand;
+import edu.kit.kastel.ui.command.initialization.SetInitModeCommand;
+import edu.kit.kastel.ui.command.initialization.StartGameCommand;
+import edu.kit.kastel.ui.command.playing.EndGameCommand;
+import edu.kit.kastel.ui.command.playing.NextCommand;
+import edu.kit.kastel.ui.command.playing.ShowAiCommand;
+import edu.kit.kastel.ui.command.playing.ShowMemoryCommand;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,8 +122,3 @@ public final class CommandHandler {
     }
 
 }
-
-
-
-
-

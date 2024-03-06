@@ -1,7 +1,10 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.initialization;
 
 import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.memory.Mode;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 /**
  * This Commands sets the Mode of the Memory.

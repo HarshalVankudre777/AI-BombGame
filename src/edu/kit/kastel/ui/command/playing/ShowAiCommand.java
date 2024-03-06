@@ -1,8 +1,11 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.playing;
 
 import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.ai.AI;
 import edu.kit.kastel.model.memory.MemoryCell;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 /**
  * This command shows the state of the AI.
@@ -10,6 +13,7 @@ import edu.kit.kastel.model.memory.MemoryCell;
  * @author Programmieren-Team
  */
 public class ShowAiCommand implements Command {
+    private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";
     private static final String AI_DISPLAY_FORMAT = "%s (%s@%d)";
     private static final String NEXT_CELL_FORMAT = "Next Command: %s|%d|%d @%d";
     private static final String RUNNING = "RUNNING";
@@ -28,6 +32,9 @@ public class ShowAiCommand implements Command {
      */
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
+        if (!model.isPlayingPhase()) {
+            return new CommandResult(CommandResultType.FAILURE, GAME_NOT_STARTED_ERROR);
+        }
         String aiName = commandArguments[AI_NAME_INDEX];
         boolean aiFound = false;
         StringBuilder sb = new StringBuilder();

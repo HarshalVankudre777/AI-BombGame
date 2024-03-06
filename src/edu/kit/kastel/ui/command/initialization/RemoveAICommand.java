@@ -1,7 +1,10 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.initialization;
 
 import edu.kit.kastel.model.ai.AI;
 import edu.kit.kastel.model.CodeFight;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 /**
  * This command removes an AI.

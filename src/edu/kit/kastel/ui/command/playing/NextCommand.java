@@ -1,9 +1,12 @@
 
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.playing;
 
 import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.ai.AI;
 import edu.kit.kastel.model.memory.MemoryCell;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ import java.util.List;
  */
 public class NextCommand implements Command {
     private static final String INVALID_STEPS_ERROR = "Invalid Steps!";
+    private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";
     private static final String STOPPED_AI_OUTPUT_FORMAT = "%s executed %d steps until stopping.";
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 1;
@@ -28,6 +32,9 @@ public class NextCommand implements Command {
      */
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
+        if (!model.isPlayingPhase()) {
+            return new CommandResult(CommandResultType.FAILURE, GAME_NOT_STARTED_ERROR);
+        }
         int cellsToExecute = 1;
         if (commandArguments.length == 1) {
             try {

@@ -1,6 +1,9 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.playing;
 
 import edu.kit.kastel.model.CodeFight;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 /**
  * This class represents a command that shows the memory.
@@ -8,6 +11,7 @@ import edu.kit.kastel.model.CodeFight;
  * @author Programmieren-Team
  */
 public class ShowMemoryCommand implements Command {
+    private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 1;
     private static final String INVALID_CELL_NUMBER = "Invalid cell number.";
@@ -22,6 +26,9 @@ public class ShowMemoryCommand implements Command {
      */
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
+        if (!model.isPlayingPhase()) {
+            return new CommandResult(CommandResultType.FAILURE, GAME_NOT_STARTED_ERROR);
+        }
         if (commandArguments.length == 0) {
             return new CommandResult(CommandResultType.SUCCESS, model.getMemoryPrinter().printOverview().toString());
         }

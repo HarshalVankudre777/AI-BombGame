@@ -1,7 +1,10 @@
-package edu.kit.kastel.ui.command;
+package edu.kit.kastel.ui.command.playing;
 
 import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.ai.AI;
+import edu.kit.kastel.ui.command.Command;
+import edu.kit.kastel.ui.command.CommandResult;
+import edu.kit.kastel.ui.command.CommandResultType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,11 @@ public class EndGameCommand implements Command {
      */
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
-        model.getRunningAI().clear();
-        StringBuilder message = new StringBuilder();
         if (!model.isPlayingPhase()) {
             return new CommandResult(CommandResultType.FAILURE, GAME_NOT_STARTED_ERROR);
         }
+        model.getRunningAI().clear();
+        StringBuilder message = new StringBuilder();
         if (model.getPlayingList().size() == model.getStoppedAIList().size()) {
             message.append(STOPPED_AI_FORMAT.formatted(
                     getStoppedAIList(model.getPlayingList(), model.getStoppedAIList()))
@@ -109,4 +112,3 @@ public class EndGameCommand implements Command {
         return UPPER_LIMIT_NUMBER_OF_ARGUMENTS;
     }
 }
-
