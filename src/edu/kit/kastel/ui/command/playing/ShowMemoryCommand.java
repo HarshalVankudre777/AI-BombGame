@@ -38,7 +38,7 @@ public class ShowMemoryCommand implements Command {
         } catch (NumberFormatException e) {
             return new CommandResult(CommandResultType.FAILURE, INVALID_CELL_NUMBER);
         }
-        if (startingCell > model.getMemorySize()) {
+        if (startingCell >= model.getMemorySize() || startingCell < 0) {
             return new CommandResult(CommandResultType.FAILURE, INVALID_CELL_NUMBER);
         }
         return new CommandResult(CommandResultType.SUCCESS, model.getMemoryPrinter().printDetail(startingCell));
