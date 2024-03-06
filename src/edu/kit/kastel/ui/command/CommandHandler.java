@@ -1,4 +1,3 @@
-
 package edu.kit.kastel.ui.command;
 
 
@@ -23,7 +22,7 @@ public final class CommandHandler {
     private static final String HELP_COMMAND = "help";
     private static final String ADD_AI_COMMAND = "add-ai";
     private static final String REMOVE_AI_COMMAND = "remove-ai";
-    private static final String SET_INIT_MODE_COMMAND = "set-init";
+    private static final String SET_INIT_MODE_COMMAND = "set-init-mode";
     private static final String START_GAME_COMMAND = "start-game";
     private static final String END_GAME_COMMAND = "end-game";
     private static final String NEXT_COMMAND = "next";
@@ -116,6 +115,7 @@ public final class CommandHandler {
     }
 
 }
+
 
 
 
