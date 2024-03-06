@@ -10,7 +10,7 @@ import edu.kit.kastel.model.memory.MemoryCell;
  * @author uiiux
  */
 public class MemoryPrinter {
-    private static final String MEMORY_AREA_DISPLAY_FORMAT = "%s %2d: %5s | %2d | %2d" + System.lineSeparator();
+   // private static final String MEMORY_AREA_DISPLAY_FORMAT = "%s %2d: %5s | %2d | %2d" + System.lineSeparator();
     private final CyclicLinkedList<MemoryCell> memory;
     private final int size;
     private final String boundsSymbol;
@@ -38,14 +38,30 @@ public class MemoryPrinter {
         MemoryCell currentCell = memory.get(cell);
         MemoryCell startingCell = currentCell;
         StringBuilder sb = new StringBuilder();
-        for (int i = cell; i < cell + 10; i++) {
+
+        int maxNameLength = 0;
+        int  maxFirstArgLength = 0;
+        int maxSecondArgLength = 0;
+        for (int i = 0; i < 10; i++) {
             InstructionName name = currentCell.getInstruction();
+            maxNameLength = Math.max(maxNameLength, name.toString().length());
+            maxFirstArgLength = Math.max(maxFirstArgLength, Integer.toString(currentCell.getFirstArgument()).length());
+            maxSecondArgLength = Math.max(maxSecondArgLength, Integer.toString(currentCell.getSecondArgument()).length());
+            currentCell = memory.getNext(currentCell);
+        }
+
+        currentCell = startingCell;
+
+        for (int i = 0; i < 10; i++) {
+            String name = currentCell.getInstruction().toString();
             int firstArgument = currentCell.getFirstArgument();
             int secondArgument = currentCell.getSecondArgument();
             int currentCellPosition = memory.getPosition(currentCell);
-            sb.append(String.format(MEMORY_AREA_DISPLAY_FORMAT, currentCell.getCurrentSymbol(),
-                    currentCellPosition, name, firstArgument, secondArgument)
-            );
+            String formattedLine = String.format(
+                    "%s %d: %-" + maxNameLength + "s | %" + maxFirstArgLength + "d | %" + maxSecondArgLength + "d"
+                            + System.lineSeparator(),
+                    currentCell.getCurrentSymbol(), currentCellPosition, name, firstArgument, secondArgument);
+            sb.append(formattedLine);
             currentCell = memory.getNext(currentCell);
         }
 
