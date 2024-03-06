@@ -10,7 +10,6 @@ import edu.kit.kastel.model.memory.MemoryCell;
  * @author uiiux
  */
 public class MemoryPrinter {
-   // private static final String MEMORY_AREA_DISPLAY_FORMAT = "%s %2d: %5s | %2d | %2d" + System.lineSeparator();
     private final CyclicLinkedList<MemoryCell> memory;
     private final int size;
     private final String boundsSymbol;
@@ -90,10 +89,10 @@ public class MemoryPrinter {
         StringBuilder symbolsLine = new StringBuilder();
         for (int cellNo = 0; cellNo < size; cellNo++) {
             MemoryCell currentCell = memory.get(cellNo);
-            symbolsLine.append(currentCell.getCurrentSymbol());
-            if (memory.getPosition(currentCell) == memory.getPosition(start) - 1) {
+            if (memory.getPosition(currentCell) == memory.getPosition(start)) {
                 symbolsLine.append(boundsSymbol);
             }
+            symbolsLine.append(currentCell.getCurrentSymbol());
             if (memory.getPosition(currentCell) == memory.getPosition(end) - 1) {
                 symbolsLine.append(boundsSymbol);
             }
