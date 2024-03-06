@@ -68,6 +68,7 @@ public class EndGameCommand implements Command {
             sb.append(ai.getName()).append(AI_NAME_SEPARATOR);
         }
         sb.deleteCharAt(sb.length() - 2);
+        sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
@@ -83,6 +84,7 @@ public class EndGameCommand implements Command {
             sb.append(ai.getName()).append(AI_NAME_SEPARATOR);
         }
         sb.deleteCharAt(sb.length() - 2);
+        sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
