@@ -17,9 +17,9 @@ public class SetInitModeCommand implements Command {
     private static final String CHANGE_WHILE_PLAYING_ERROR = "Cannot change modes when game is running";
     private static final String INVALID_SEED_ERROR = "Invalid seed.";
     private static final String CHANGED_MODE_TO_STOP_MESSAGE =
-            "Changed init mode from INIT_MODE_RANDOM 0 to INIT_MODE_STOP.";
+            "Changed init mode from INIT_MODE_RANDOM 0 to INIT_MODE_STOP";
     private static final String CHANGED_MODE_TO_RANDOM_MESSAGE =
-            "Changed init mode from INIT_MODE_STOP to INIT_MODE_RANDOM %d.";
+            "Changed init mode from INIT_MODE_STOP to INIT_MODE_RANDOM %d";
 
     private static final String MODE_CANNOT_CHANGE_ERROR = "Mode cannot be changed.";
 
