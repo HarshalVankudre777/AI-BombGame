@@ -39,11 +39,11 @@ public class MemoryPrinter {
         MemoryCell startingCell = currentCell;
         StringBuilder sb = new StringBuilder();
 
-        int maxNameLength = 0;
-        int  maxFirstArgLength = 0;
-        int maxSecondArgLength = 0;
+        int maxPosLength = 0, maxNameLength = 0, maxFirstArgLength = 0, maxSecondArgLength = 0;
         for (int i = 0; i < 10; i++) {
             InstructionName name = currentCell.getInstruction();
+            int currentCellPosition = memory.getPosition(currentCell);
+            maxPosLength = Math.max(maxPosLength, Integer.toString(currentCellPosition).length());
             maxNameLength = Math.max(maxNameLength, name.toString().length());
             maxFirstArgLength = Math.max(maxFirstArgLength, Integer.toString(currentCell.getFirstArgument()).length());
             maxSecondArgLength = Math.max(maxSecondArgLength, Integer.toString(currentCell.getSecondArgument()).length());
@@ -58,8 +58,8 @@ public class MemoryPrinter {
             int secondArgument = currentCell.getSecondArgument();
             int currentCellPosition = memory.getPosition(currentCell);
             String formattedLine = String.format(
-                    "%s %d: %-" + maxNameLength + "s | %" + maxFirstArgLength + "d | %" + maxSecondArgLength + "d"
-                            + System.lineSeparator(),
+                    "%s %" + maxPosLength + "d: %-" + maxNameLength + "s | %" + maxFirstArgLength + "d | %"
+                            + maxSecondArgLength + "d" + System.lineSeparator(),
                     currentCell.getCurrentSymbol(), currentCellPosition, name, firstArgument, secondArgument);
             sb.append(formattedLine);
             currentCell = memory.getNext(currentCell);
