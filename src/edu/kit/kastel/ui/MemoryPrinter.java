@@ -61,7 +61,7 @@ public class MemoryPrinter {
             int secondArgument = currentCell.getSecondArgument();
             int currentCellPosition = memory.getPosition(currentCell);
             String formattedLine = String.format(
-                    "%s %" + maxPosLength + "d: %-" + maxNameLength + "s | %" + maxFirstArgLength + "d | %"
+                    "%s %" + maxPosLength + "d: %5s | %" + maxFirstArgLength + "d | %"
                             + maxSecondArgLength + "d" + System.lineSeparator(),
                     currentCell.getCurrentSymbol(), currentCellPosition, name, firstArgument, secondArgument);
             sb.append(formattedLine);
