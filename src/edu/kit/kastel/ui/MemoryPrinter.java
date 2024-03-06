@@ -39,7 +39,10 @@ public class MemoryPrinter {
         MemoryCell startingCell = currentCell;
         StringBuilder sb = new StringBuilder();
 
-        int maxPosLength = 0, maxNameLength = 0, maxFirstArgLength = 0, maxSecondArgLength = 0;
+        int maxPosLength = 0;
+        int maxNameLength = 0;
+        int maxFirstArgLength = 0;
+        int maxSecondArgLength = 0;
         for (int i = 0; i < 10; i++) {
             InstructionName name = currentCell.getInstruction();
             int currentCellPosition = memory.getPosition(currentCell);
