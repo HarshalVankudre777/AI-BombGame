@@ -54,10 +54,8 @@ public final class Main {
      * @return     Program model
      */
     private static Optional<CodeFight> getCodeFight(String[] args) {
-
         if (args.length % 2 == 0) {
             return Optional.empty();
-
         }
         int memorySize;
         try {
@@ -70,14 +68,14 @@ public final class Main {
         }
         List<String> memorySymbols = new ArrayList<>();
         for (int i = 1; i <= LAST_MEMORY_SYMBOL_INDEX; i++) {
-            if (args[i].length() != 1 || args[i].equals(EMPTY_SPACE)) {
+            if (Objects.equals(args[i], EMPTY_SPACE)) {
                 return Optional.empty();
             }
             memorySymbols.add(args[i]);
         }
         List<String> aiSymbols = new ArrayList<>();
         for (int i = FIRST_AI_SYMBOL_INDEX; i < args.length; i++) {
-            if (args[i].length() != 1 || Objects.equals(args[i], EMPTY_SPACE)) {
+            if (Objects.equals(args[i], EMPTY_SPACE)) {
                 return Optional.empty();
             }
             aiSymbols.add(args[i]);
@@ -87,6 +85,7 @@ public final class Main {
         }
         return Optional.of(new CodeFight(memorySize, memorySymbols, aiSymbols));
     }
+
 
     private static boolean hasDuplicates(List<String> array) {
         Set<String> set = new HashSet<>();
