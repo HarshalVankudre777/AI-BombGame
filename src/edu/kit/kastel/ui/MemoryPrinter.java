@@ -10,7 +10,7 @@ import edu.kit.kastel.model.memory.MemoryCell;
  * @author uiiux
  */
 public class MemoryPrinter {
-    private static final String MEMORY_AREA_DISPLAY_FORMAT = "%s %d:  %s | %d | %d" + System.lineSeparator();
+    private static final String MEMORY_AREA_DISPLAY_FORMAT = "%s %d: %s |  %d | %d" + System.lineSeparator();
     private final CyclicLinkedList<MemoryCell> memory;
     private final int size;
     private final String boundsSymbol;
