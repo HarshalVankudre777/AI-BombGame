@@ -13,6 +13,8 @@ import edu.kit.kastel.ui.command.CommandResultType;
 public class SetInitModeCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 1;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
+    private static final int MIN_SEED_VALUE = -1337;
+    private static final int MAX_SEED_VALUE = 1337;
     private static final int MODE_INDEX = 0;
     private static final int SEED_INDEX = 1;
     private static final String STOP_MODE_SYNTAX = "INIT_MODE_STOP";
@@ -47,7 +49,7 @@ public class SetInitModeCommand implements Command {
         if (commandArguments.length > 1) {
             try {
                 seed = Long.parseLong(commandArguments[SEED_INDEX]);
-                if (seed < 0 || seed > 1337) {
+                if (seed < MIN_SEED_VALUE || seed > MAX_SEED_VALUE) {
                     return new CommandResult(CommandResultType.FAILURE, INVALID_SEED_ERROR);
                 }
             } catch (NumberFormatException e) {
