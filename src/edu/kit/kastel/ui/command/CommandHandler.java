@@ -78,7 +78,6 @@ public final class CommandHandler {
         String[] splitCommand = commandWithArguments.trim().split(COMMAND_SEPARATOR_REGEX);
         String commandName = splitCommand[0];
         String[] commandArguments = Arrays.copyOfRange(splitCommand, 1, splitCommand.length);
-
         executeCommand(commandName, commandArguments);
     }
 
