@@ -43,7 +43,7 @@ public class SetInitModeCommand implements Command {
             return new CommandResult(CommandResultType.FAILURE, CHANGE_WHILE_PLAYING_ERROR);
         }
         String mode = commandArguments[MODE_INDEX];
-        long seed = 0;
+        long seed = 3;
         if (commandArguments.length > 1) {
             try {
                 seed = Long.parseLong(commandArguments[SEED_INDEX]);
