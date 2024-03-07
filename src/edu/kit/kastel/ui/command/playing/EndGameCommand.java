@@ -56,10 +56,11 @@ public class EndGameCommand implements Command {
             );
 
         }
-        clearAIsInMemory(
+        clearAIs(
                 model.getMemory(),
                 model.getRunningAI(),
-                model.getMemoryDefaultSymbol()
+                model.getMemoryDefaultSymbol(),
+                model
         );
         model.getMemoryInitializer().initializeWithDefault();
         model.setPlayingPhase(false);
@@ -100,19 +101,20 @@ public class EndGameCommand implements Command {
     }
 
 
-    private void clearAIsInMemory(
+    private void clearAIs(
             CyclicLinkedList<MemoryCell> memory,
             CyclicLinkedList<AI> runningAIList,
-            String defaultDisplaySymbol
+            String defaultDisplaySymbol,
+            CodeFight model
     ) {
         for (int i = 0; i < memory.size(); i++) {
             memory.get(i).setCurrentSymbol(defaultDisplaySymbol);
             memory.get(i).setDefaultSymbol(defaultDisplaySymbol);
         }
 
-        for (int i = 0; i < runningAIList.size(); i++) {
-            runningAIList.get(i).resetAIPositions();
-            runningAIList.get(i).resetStepsExecuted();
+        for (int i = 0; i < model.getListOfAI().size(); i++) {
+            model.getListOfAI().get(i).resetAIPositions();
+            model.getListOfAI().get(i).resetStepsExecuted();
         }
     }
 
