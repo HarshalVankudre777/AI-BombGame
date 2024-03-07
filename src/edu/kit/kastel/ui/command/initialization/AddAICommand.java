@@ -54,7 +54,7 @@ public class AddAICommand implements Command {
             }
         }
         List<MemoryCell> instructionList = parseInstructions(commandArguments[AI_INSTRUCTIONS_INDEX]);
-        if (instructionList.size() > model.getMemorySize() / 2) {
+        if (instructionList.size() > (model.getMemorySize() / 2) + 1) {
             return new CommandResult(CommandResultType.FAILURE, TOO_MANY_INSTRUCTIONS_ERROR);
         }
 
