@@ -102,6 +102,7 @@ public class CodeFight {
      * Handles the game logic, updating the current AI and setting start indexes for AIs.
      */
     public void gameHandler() {
+        aiCommandExecutor = new AICommandExecutor(getMemory(), stoppedAIList);
         currentAI = runningAI.get(AI_HEAD_INDEX);
         int memoryPerAI = memorySize / runningAI.size();
         for (int i = 0; i < runningAI.size(); i++) {
@@ -114,12 +115,6 @@ public class CodeFight {
         }
     }
 
-    /**
-     * Creates an AI command executor for the simulation.
-     */
-    public void createAICommandExecutor() {
-        aiCommandExecutor = new AICommandExecutor(getMemory(), stoppedAIList);
-    }
 
     /**
      * Returns the list of AI symbols.
