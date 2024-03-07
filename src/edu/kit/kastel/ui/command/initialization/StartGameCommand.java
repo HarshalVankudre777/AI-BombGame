@@ -22,6 +22,7 @@ public class StartGameCommand implements Command {
     private static final String AI_DOES_NOT_EXIST = "AI %s does not exist.";
     private static final String GAME_STARTED_MESSAGE = "Game started.";
     private static final String GAME_HAS_ALREADY_STARTED_ERROR = "Game is already running.";
+    private static final String NAME_INDEX_SEPARATOR = "#";
     private static final int NUMBER_OF_SYMBOLS_PER_AI = 2;
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
     private final CodeFight codeFight;
@@ -91,7 +92,7 @@ public class StartGameCommand implements Command {
             String aiName = ai.getName();
             if (nameCount.get(aiName) > 1) {
                 int index = currentIndex.getOrDefault(aiName, 0);
-                AI newAI = copyAI(ai, aiName + "#" + index);
+                AI newAI = copyAI(ai, aiName + NAME_INDEX_SEPARATOR + index);
                 updatedList.add(newAI);
                 currentIndex.put(aiName, index + 1);
             } else {
@@ -110,9 +111,6 @@ public class StartGameCommand implements Command {
      * @return        new deep copy of the AI
      */
     private AI copyAI(AI ai, String newName) {
-        if (ai == null || newName == null) {
-            throw new IllegalArgumentException("Arguments cannot be null");
-        }
         List<MemoryCell> instructions = new ArrayList<>();
         for (MemoryCell memoryCell: ai.getAiCommands()) {
             MemoryCell copyOfMemoryCell = memoryCell.duplicate();

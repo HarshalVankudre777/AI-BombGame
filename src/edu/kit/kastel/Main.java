@@ -26,6 +26,7 @@ public final class Main {
     private static final int FIRST_AI_SYMBOL_INDEX = 5;
     private static final int MINIMUM_ARGS = 9;
     private static final int MEMORY_SIZE_LIMIT = 1337;
+    private static final int MEMORY_SIZE_MIN = 7;
 
     private Main() {
         throw new UnsupportedOperationException(UTILITY_CLASS_CONSTRUCTOR_MESSAGE);
@@ -65,7 +66,7 @@ public final class Main {
         } catch (NumberFormatException e) {
             return Optional.empty();
         }
-        if (memorySize < 7 || memorySize > MEMORY_SIZE_LIMIT) {
+        if (memorySize < MEMORY_SIZE_MIN || memorySize > MEMORY_SIZE_LIMIT) {
             return Optional.empty();
         }
         List<String> memorySymbols = new ArrayList<>();

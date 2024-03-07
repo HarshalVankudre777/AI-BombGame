@@ -24,9 +24,11 @@ public class AddAICommand implements Command {
     private static final String INVALID_AI_INSTRUCTIONS_ERROR = "Invalid AI instructions.";
     private static final String ADDING_WHILE_PLAYING_ERROR = "Cannot add when the game is running!";
     private static final String TOO_MANY_INSTRUCTIONS_ERROR = "Too many AI Commands";
+    private static final String EMPTY_SPACE = " ";
     private static final String INSTRUCTION_SEPARATOR = ",";
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
+    private static final int LENGTH_OF_INSTRUCTION = 3;
     private static final int AI_NAME_INDEX = 0;
     private static final int AI_INSTRUCTIONS_INDEX = 1;
     private static final int ELEMENTS_IN_AI_COMMAND = 3;
@@ -44,7 +46,7 @@ public class AddAICommand implements Command {
         if (model.isPlayingPhase()) {
             return new CommandResult(CommandResultType.FAILURE, ADDING_WHILE_PLAYING_ERROR);
         }
-        if (commandArguments[AI_NAME_INDEX].contains(" ")) {
+        if (commandArguments[AI_NAME_INDEX].contains(EMPTY_SPACE)) {
             return new CommandResult(CommandResultType.FAILURE, INVALID_AI_NAME_ERROR);
         }
         String aiName = commandArguments[AI_NAME_INDEX];
@@ -76,7 +78,7 @@ public class AddAICommand implements Command {
         String[] instructions = instructionsSet.split(INSTRUCTION_SEPARATOR);
         boolean allInstructionsValid = instructions.length % ELEMENTS_IN_AI_COMMAND == 0;
 
-        for (int i = 0; i <= instructions.length - 3; i += 3) {
+        for (int i = 0; i <= instructions.length - LENGTH_OF_INSTRUCTION; i += LENGTH_OF_INSTRUCTION) {
             String instructionName = instructions[i];
             int firstArgument;
             int secondArgument;

@@ -107,7 +107,9 @@ public class AI {
     }
 
     /**
-     * Sets the start index of the AI.
+     * Sets the currentPosition of the AI.
+     * If the currentPosition in memory has stop then it will skip that cell
+     * so that the AI doesn't start with STOP.
      *
      * @param startIndex start index of the AI
      */

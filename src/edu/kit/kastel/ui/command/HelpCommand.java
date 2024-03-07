@@ -43,14 +43,6 @@ public class HelpCommand implements Command {
 
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
-        helpMap.put("add-ai", ADD_AI_HELP_TEXT);
-        helpMap.put("remove-ai", REMOVE_AI_HELP_TEXT);
-        helpMap.put("set-init-mode", SET_INIT_HELP_TEXT);
-        helpMap.put("start-game", START_GAME_HELP_TEXT);
-        helpMap.put("next", NEXT_HELP_TEXT);
-        helpMap.put("show-memory", SHOW_MEMORY_HELP_TEXT);
-        helpMap.put("show-ai", SHOW_AI_HELP_TEXT);
-        helpMap.put("end-game", END_GAME_HELP_TEXT);
 
         return new CommandResult(CommandResultType.SUCCESS, helpMap.toString());
 

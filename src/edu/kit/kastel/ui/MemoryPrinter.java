@@ -10,6 +10,8 @@ import edu.kit.kastel.model.memory.MemoryCell;
  * @author uiiux
  */
 public class MemoryPrinter {
+    private static final String PRINT_DETAIL_FORMAT = "%%s %%%dd: %%%ds | %%%dd | %%%dd%%n";
+    private static final int CELLS_TO_SHOW = 10;
     private final CyclicLinkedList<MemoryCell> memory;
     private final int size;
     private final String boundsSymbol;
@@ -38,31 +40,35 @@ public class MemoryPrinter {
         MemoryCell startingCell = currentCell;
         StringBuilder sb = new StringBuilder();
 
+        // Determine maximum lengths for formatting
         int maxPosLength = 0;
         int maxNameLength = 0;
         int maxFirstArgLength = 0;
         int maxSecondArgLength = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < CELLS_TO_SHOW; i++) {
             InstructionName name = currentCell.getInstruction();
             int currentCellPosition = memory.getPosition(currentCell);
-            maxPosLength = Math.max(maxPosLength, Integer.toString(currentCellPosition).length());
+            maxPosLength = Math.max(maxPosLength, String.valueOf(currentCellPosition).length());
             maxNameLength = Math.max(maxNameLength, name.toString().length());
-            maxFirstArgLength = Math.max(maxFirstArgLength, Integer.toString(currentCell.getFirstArgument()).length());
-            maxSecondArgLength = Math.max(maxSecondArgLength, Integer.toString(currentCell.getSecondArgument()).length());
+            maxFirstArgLength = Math.max(maxFirstArgLength, String.valueOf(currentCell.getFirstArgument()).length());
+            maxSecondArgLength = Math.max(maxSecondArgLength, String.valueOf(currentCell.getSecondArgument()).length());
             currentCell = memory.getNext(currentCell);
         }
 
-        currentCell = startingCell;
+        // Construct the dynamic format pattern based on calculated max lengths
+        String dynamicFormatPattern = String.format(PRINT_DETAIL_FORMAT,
+                maxPosLength, maxNameLength,
+                maxFirstArgLength, maxSecondArgLength);
 
-        for (int i = 0; i < 10; i++) {
-            String name = currentCell.getInstruction().toString();
-            int firstArgument = currentCell.getFirstArgument();
-            int secondArgument = currentCell.getSecondArgument();
+        // Reset to the starting cell for actual printing
+        currentCell = startingCell;
+        for (int i = 0; i < CELLS_TO_SHOW; i++) {
             int currentCellPosition = memory.getPosition(currentCell);
-            String formattedLine = String.format(
-                    "%s %" + maxPosLength + "d: %" + maxNameLength + "s | %" + maxFirstArgLength + "d | %"
-                            + maxSecondArgLength + "d" + System.lineSeparator(),
-                    currentCell.getCurrentSymbol(), currentCellPosition, name, firstArgument, secondArgument);
+            String formattedLine = String.format(dynamicFormatPattern,
+                    currentCell.getCurrentSymbol(), currentCellPosition,
+                    currentCell.getInstruction().toString(),
+                    currentCell.getFirstArgument(), currentCell.getSecondArgument());
+
             sb.append(formattedLine);
             currentCell = memory.getNext(currentCell);
         }
