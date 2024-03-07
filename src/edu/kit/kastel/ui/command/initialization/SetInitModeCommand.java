@@ -47,6 +47,9 @@ public class SetInitModeCommand implements Command {
         if (commandArguments.length > 1) {
             try {
                 seed = Long.parseLong(commandArguments[SEED_INDEX]);
+                if (seed < 0) {
+                    return new CommandResult(CommandResultType.FAILURE, INVALID_SEED_ERROR);
+                }
             } catch (NumberFormatException e) {
                 return new CommandResult(CommandResultType.FAILURE, INVALID_SEED_ERROR);
             }
