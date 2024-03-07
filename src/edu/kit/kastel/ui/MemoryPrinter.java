@@ -51,8 +51,11 @@ public class MemoryPrinter {
             maxNameLength = Math.max(maxNameLength, name.toString().length());
             maxFirstArgLength = Math.max(maxFirstArgLength, String.valueOf(currentCell.getFirstArgument()).length());
             maxSecondArgLength = Math.max(maxSecondArgLength, String.valueOf(currentCell.getSecondArgument()).length());
+            if (i == CELLS_TO_SHOW - 1) {
+                break;
+            }
             currentCell = memory.getNext(currentCell);
-            if (memory.getNext(currentCell).equals(startingCell)) {
+            if (currentCell.equals(startingCell)) {
                 break;
             }
 
@@ -75,8 +78,9 @@ public class MemoryPrinter {
                 break;
             }
 
-            if (!memory.getNext(currentCell).equals(startingCell)) {
-                currentCell = memory.getNext(currentCell);
+            currentCell = memory.getNext(currentCell);
+            if (currentCell.equals(startingCell)) {
+                break;
             }
         }
 
