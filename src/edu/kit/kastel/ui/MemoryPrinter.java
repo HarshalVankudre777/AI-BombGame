@@ -49,10 +49,8 @@ public class MemoryPrinter {
             int currentCellPosition = memory.getPosition(currentCell);
             maxPosLength = Math.max(maxPosLength, String.valueOf(currentCellPosition).length());
             maxNameLength = Math.max(maxNameLength, name.toString().length());
-            maxFirstArgLength = Math.max(maxFirstArgLength,
-                    String.valueOf(Math.abs(currentCell.getFirstArgument())).length());
-            maxSecondArgLength = Math.max(maxSecondArgLength,
-                    String.valueOf(Math.abs(currentCell.getSecondArgument())).length());
+            maxFirstArgLength = Math.max(maxFirstArgLength, String.valueOf(currentCell.getFirstArgument()).length());
+            maxSecondArgLength = Math.max(maxSecondArgLength, String.valueOf(currentCell.getSecondArgument()).length());
 
             currentCell = memory.getNext(currentCell);
             if (currentCell.equals(startingCell)) {
