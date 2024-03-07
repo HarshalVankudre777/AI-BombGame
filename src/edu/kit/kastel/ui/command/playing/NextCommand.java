@@ -59,8 +59,11 @@ public class NextCommand implements Command {
         if (model.getStoppedAIList().isEmpty()) {
             return new CommandResult(CommandResultType.SUCCESS, null);
         }
-        return new CommandResult(CommandResultType.SUCCESS, parseOutput(model.getStoppedAIList()));
-
+        if (!model.isAllAIsStopped()) {
+            model.setAllAIsStopped(true);
+            return new CommandResult(CommandResultType.SUCCESS, parseOutput(model.getStoppedAIList()));
+        }
+        return new CommandResult(CommandResultType.SUCCESS, null);
     }
     
     private void updateNextSymbols(CodeFight model) {

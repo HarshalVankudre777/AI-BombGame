@@ -37,6 +37,7 @@ public class CodeFight {
     private final List<AI> listOfAI = new ArrayList<>();
     private Mode memoryMode;
     private AI currentAI;
+    private boolean allAIsStopped;
     private AICommandExecutor aiCommandExecutor;
     private boolean playingPhase = false;
 
@@ -300,5 +301,20 @@ public class CodeFight {
 
     }
 
+    /**
+     * Checks if all AIs are stopped.
+     * @return true if all AIs are stopped else false
+     */
+    public boolean isAllAIsStopped() {
+        return allAIsStopped;
+    }
+
+    /**
+     * Sets if all AIs are stopped.
+     * @param allAIsStopped boolean if all AIs are stopped
+     */
+    public void setAllAIsStopped(boolean allAIsStopped) {
+        this.allAIsStopped = allAIsStopped;
+    }
 }
 
