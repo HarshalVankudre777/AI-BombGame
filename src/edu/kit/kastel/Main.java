@@ -80,16 +80,16 @@ public final class Main {
             }
             aiSymbols.add(args[i]);
         }
-        if (hasDuplicates(memorySymbols) || hasDuplicates(aiSymbols)) {
+        if (hasDuplicates(args)) {
             return Optional.empty();
         }
         return Optional.of(new CodeFight(memorySize, memorySymbols, aiSymbols));
     }
 
 
-    private static boolean hasDuplicates(List<String> array) {
+    private static boolean hasDuplicates(String[] args) {
         Set<String> set = new HashSet<>();
-        for (String element : array) {
+        for (String element : args) {
             if (!set.add(element)) {
                 return true;
             }
