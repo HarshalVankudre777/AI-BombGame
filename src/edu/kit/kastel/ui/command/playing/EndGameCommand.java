@@ -58,7 +58,6 @@ public class EndGameCommand implements Command {
         }
         clearAIsInMemory(
                 model.getMemory(),
-                model.getRunningAI(),
                 model.getMemoryDefaultSymbol()
         );
         model.getMemoryInitializer().initializeWithDefault();
@@ -102,7 +101,6 @@ public class EndGameCommand implements Command {
 
     private void clearAIsInMemory(
             CyclicLinkedList<MemoryCell> memory,
-            CyclicLinkedList<AI> runningAIList,
             String defaultDisplaySymbol
     ) {
         for (int i = 0; i < memory.size(); i++) {
