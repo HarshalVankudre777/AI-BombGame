@@ -57,11 +57,13 @@ public class SetInitModeCommand implements Command {
             }
             model.setMemoryMode(Mode.STOP);
             return new CommandResult(CommandResultType.SUCCESS, message);
-        } else if (mode.equals(RANDOM_MODE_SYNTAX)
-                && commandArguments.length == 2) {
+        } else if (mode.equals(RANDOM_MODE_SYNTAX) && commandArguments.length == 2) {
             model.getMemoryInitializer().initializeWithRandoms(seed);
+            if (model.getMemoryMode().equals(Mode.STOP)) {
+                message = CHANGED_MODE_TO_RANDOM_MESSAGE;
+            }
             model.setMemoryMode(Mode.RANDOM);
-            return new CommandResult(CommandResultType.SUCCESS, String.format(CHANGED_MODE_TO_RANDOM_MESSAGE, seed));
+            return new CommandResult(CommandResultType.SUCCESS, String.format(message, seed));
         }
         return new CommandResult(CommandResultType.FAILURE, MODE_CANNOT_CHANGE_ERROR);
     }
