@@ -23,7 +23,6 @@ public class AI {
     private int nextCellIndex;
     private boolean isStopped = false;
 
-    private int memoryAllocatedATStart = 0;
     /**
      * Initializes the AI.
      *
@@ -162,11 +161,4 @@ public class AI {
         currentAIPosition = newPosition;
     }
 
-    public void setMemoryAllocatedATStart  (int memoryAllocatedATStart) {
-        this.memoryAllocatedATStart = memoryAllocatedATStart;
-    }
-
-    public int getMemoryAllocatedATStart() {
-        return memoryAllocatedATStart;
-    }
 }
