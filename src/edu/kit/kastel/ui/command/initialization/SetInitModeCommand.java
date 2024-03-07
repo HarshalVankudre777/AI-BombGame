@@ -20,7 +20,7 @@ public class SetInitModeCommand implements Command {
     private static final String CHANGE_WHILE_PLAYING_ERROR = "Cannot change modes when game is running";
     private static final String INVALID_SEED_ERROR = "Invalid seed.";
     private static final String CHANGED_MODE_TO_STOP_MESSAGE =
-            "Changed init mode from INIT_MODE_RANDOM 0 to INIT_MODE_STOP";
+            "Changed init mode from INIT_MODE_RANDOM %d to INIT_MODE_STOP";
     private static final String CHANGED_MODE_TO_RANDOM_MESSAGE =
             "Changed init mode from INIT_MODE_STOP to INIT_MODE_RANDOM %d";
     private static final String CHANGED_MODE_FROM_RANDOM_TO_RANDOM =
@@ -43,7 +43,7 @@ public class SetInitModeCommand implements Command {
             return new CommandResult(CommandResultType.FAILURE, CHANGE_WHILE_PLAYING_ERROR);
         }
         String mode = commandArguments[MODE_INDEX];
-        long seed = 3;
+        long seed = 0;
         if (commandArguments.length > 1) {
             try {
                 seed = Long.parseLong(commandArguments[SEED_INDEX]);
@@ -55,7 +55,7 @@ public class SetInitModeCommand implements Command {
         if (mode.equals(STOP_MODE_SYNTAX)) {
             model.getMemoryInitializer().initializeWithDefault();
             if (model.getMemoryMode().equals(Mode.RANDOM)) {
-                message = CHANGED_MODE_TO_STOP_MESSAGE;
+                message = CHANGED_MODE_TO_STOP_MESSAGE.formatted(model.getMemoryInitializer().getSeed());
             }
             model.setMemoryMode(Mode.STOP);
             return new CommandResult(CommandResultType.SUCCESS, message);
