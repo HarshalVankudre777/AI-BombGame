@@ -23,6 +23,8 @@ public class SetInitModeCommand implements Command {
             "Changed init mode from INIT_MODE_RANDOM 0 to INIT_MODE_STOP";
     private static final String CHANGED_MODE_TO_RANDOM_MESSAGE =
             "Changed init mode from INIT_MODE_STOP to INIT_MODE_RANDOM %d";
+    private static final String CHANGED_MODE_FROM_RANDOM_TO_RANDOM =
+            "Changed init mode from INIT_MODE_RANDOM %d to INIT_MODE_RANDOM %d";
 
     private static final String MODE_CANNOT_CHANGE_ERROR = "Mode cannot be changed.";
 
@@ -60,10 +62,13 @@ public class SetInitModeCommand implements Command {
         } else if (mode.equals(RANDOM_MODE_SYNTAX) && commandArguments.length == 2) {
             model.getMemoryInitializer().initializeWithRandoms(seed);
             if (model.getMemoryMode().equals(Mode.STOP)) {
-                message = CHANGED_MODE_TO_RANDOM_MESSAGE;
+                message = CHANGED_MODE_TO_RANDOM_MESSAGE.formatted(seed);
+            } else if (model.getMemoryInitializer().getSeed() != seed) {
+                message = CHANGED_MODE_FROM_RANDOM_TO_RANDOM.formatted(model.getMemoryInitializer().getSeed(), seed);
             }
             model.setMemoryMode(Mode.RANDOM);
-            return new CommandResult(CommandResultType.SUCCESS, String.format(message, seed));
+
+            return new CommandResult(CommandResultType.SUCCESS, message);
         }
         return new CommandResult(CommandResultType.FAILURE, MODE_CANNOT_CHANGE_ERROR);
     }

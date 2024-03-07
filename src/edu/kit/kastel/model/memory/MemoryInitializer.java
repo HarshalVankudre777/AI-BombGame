@@ -14,6 +14,7 @@ public class MemoryInitializer {
     private Random random;
     private final CyclicLinkedList<MemoryCell> memory;
     private final String defaultSymbol;
+    private long seed = 0;
 
     /**
      * Constructs a MemoryInitializer with a specified maximum size, memory, and default symbol.
@@ -29,6 +30,13 @@ public class MemoryInitializer {
         this.defaultSymbol = defaultSymbol;
     }
 
+    /***
+     * Gets the seed.
+     * @return seed
+     */
+    public long getSeed() {
+        return seed;
+    }
     /**
      * Initializes the memory with default values.
      */
@@ -59,6 +67,7 @@ public class MemoryInitializer {
      * @param seed the seed for the random number generator to ensure reproducibility.
      */
     public void initializeWithRandoms(long seed) {
+        this.seed = seed;
         this.random = new Random(seed);
         int numberOfInstructions = InstructionName.values().length;
         for (int i = 0; i < maxSize; i++) {
