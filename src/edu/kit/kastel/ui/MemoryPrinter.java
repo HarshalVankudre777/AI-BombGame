@@ -71,9 +71,12 @@ public class MemoryPrinter {
                     currentCell.getFirstArgument(), currentCell.getSecondArgument());
 
             sb.append(formattedLine);
-            currentCell = memory.getNext(currentCell);
-            if (memory.getNext(currentCell).equals(startingCell)) {
+            if (i == CELLS_TO_SHOW - 1) {
                 break;
+            }
+
+            if (!memory.getNext(currentCell).equals(startingCell)) {
+                currentCell = memory.getNext(currentCell);
             }
         }
 
