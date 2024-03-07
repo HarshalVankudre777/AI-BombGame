@@ -12,10 +12,10 @@ public class HelpCommand implements Command {
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
 
     private static final String INITIALIZATION_HELP_TEXT = """
-             add-ai: Adds a new AI into the game.
-             remove-ai: Removes a AI from the game.
-             set-init: Initializes the memory with either default values or random.
-             start-game: The game progress to the playing phase with the specifies AI's.
+            add-ai: Adds a new AI into the game.
+            remove-ai: Removes a AI from the game.
+            set-init: Initializes the memory with either default values or random.
+            start-game: The game progress to the playing phase with the specifies AI's.
             """;
 
     private static final String PLAYING_PHASE_HELP_TEXT = """
