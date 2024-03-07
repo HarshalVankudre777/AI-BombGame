@@ -86,13 +86,21 @@ public class CodeFight {
      * Loads AI commands into the simulation memory based on the AI list.
      */
     public void loadMemory() {
-        int memoryPerAI = memorySize / getPlayingList().size();
+        int tempSize = memorySize;
+        List<AI> playingList = getPlayingList();
+        int playingListSize = playingList.size();
         int baseIndex = 0;
 
-        for (AI ai : getPlayingList()) {
-            for (int i = baseIndex; i < baseIndex + ai.getAiCommands().size(); i++) {
-                getMemory().replace(i, ai.getAiCommands().get(i - baseIndex));
+        for (int i = 0; i < playingListSize; i++) {
+            AI ai = playingList.get(i);
+            int memoryPerAI = tempSize / (playingListSize - i);
+
+            for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
+                getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));
             }
+
+            tempSize -= memoryPerAI;
+            ai.setMemoryAllocated(memoryPerAI);
             baseIndex += memoryPerAI;
         }
     }
@@ -104,9 +112,11 @@ public class CodeFight {
     public void gameHandler() {
         aiCommandExecutor = new AICommandExecutor(getMemory(), stoppedAIList);
         currentAI = runningAI.get(AI_HEAD_INDEX);
-        int memoryPerAI = memorySize / runningAI.size();
+        int memoryPerAI = 0;
         for (int i = 0; i < runningAI.size(); i++) {
-            runningAI.get(i).setStartIndex(i * memoryPerAI);
+            AI ai = runningAI.get(i);
+            ai.setStartIndex(memoryPerAI);
+            memoryPerAI = ai.getMemoryAllocated() + memoryPerAI;
             if (runningAI.get(i).equals(currentAI)) {
                 memory.get(runningAI.get(i).getNextCellIndex()).setCurrentSymbol(getCurrentSymbol());
             } else {

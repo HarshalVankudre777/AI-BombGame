@@ -19,6 +19,7 @@ public class AI {
     private int stepsExecuted = 0;
 
     private int currentAIPosition = 0;
+    private int memoryAllocated = 0;
 
     private int nextCellIndex;
     private boolean isStopped = false;
@@ -171,4 +172,21 @@ public class AI {
         currentAIPosition = newPosition;
     }
 
+    /**
+     * Gets the amount of memory allocated to the AI.
+     *
+     * @return size of memory allocated
+     */
+    public int getMemoryAllocated() {
+        return memoryAllocated;
+    }
+
+    /**
+     * Gets the amount of memory allocated to the AI.
+     *
+     * @param memoryAllocated size of memory allocated
+     */
+    public void setMemoryAllocated(int memoryAllocated) {
+        this.memoryAllocated = memoryAllocated;
+    }
 }
