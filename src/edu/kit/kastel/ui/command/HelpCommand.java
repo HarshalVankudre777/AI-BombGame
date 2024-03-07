@@ -1,7 +1,6 @@
 package edu.kit.kastel.ui.command;
 
 import edu.kit.kastel.model.CodeFight;
-import edu.kit.kastel.model.ai.InstructionName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +21,9 @@ public class HelpCommand implements Command {
     private static final String SHOW_MEMORY_HELP_TEXT = "Shows either overview of memory or in detail.";
     private static final String SHOW_AI_HELP_TEXT = "Shows the current state of the AI.";
     private static final String END_GAME_HELP_TEXT = "Ends the game, the game switches back to the Initialization phase.";
+    private static final String HELP_FORMAT = "%s: %s";
 
-    private final Map<InstructionName, String> helpMap;
+    private final Map<String, String> helpMap;
 
     /**
      * Initializes the help map.
@@ -43,7 +43,17 @@ public class HelpCommand implements Command {
 
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
-        return new CommandResult(CommandResultType.SUCCESS, null);
+        helpMap.put("add-ai", ADD_AI_HELP_TEXT);
+        helpMap.put("remove-ai", REMOVE_AI_HELP_TEXT);
+        helpMap.put("set-init-mode", SET_INIT_HELP_TEXT);
+        helpMap.put("start-game", START_GAME_HELP_TEXT);
+        helpMap.put("next", NEXT_HELP_TEXT);
+        helpMap.put("show-memory", SHOW_MEMORY_HELP_TEXT);
+        helpMap.put("show-ai", SHOW_AI_HELP_TEXT);
+        helpMap.put("end-game", END_GAME_HELP_TEXT);
+
+        return new CommandResult(CommandResultType.SUCCESS, helpMap.toString());
+
 
     }
 
