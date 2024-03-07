@@ -67,7 +67,6 @@ public class StartGameCommand implements Command {
         }
         model.assignSymbols();
         model.loadMemory();
-        model.createAICommandExecutor();
         model.gameHandler();
         model.setPlayingPhase(true);
         return new CommandResult(CommandResultType.SUCCESS, GAME_STARTED_MESSAGE);
