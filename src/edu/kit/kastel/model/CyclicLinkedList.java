@@ -10,6 +10,9 @@ import java.util.Objects;
  * @author uiiux
  */
 public class CyclicLinkedList<T> {
+    private static final String LIST_EMPTY_EXCEPTION = "List is empty";
+    private static final String NOT_FOUNT_IN_LIST_EXCEPTION = "Data not found in List.";
+    private static final String INVALID_POSITION_EXCEPTION = "Invalid position: ";
     private Node<T> head;
     private int size;
 
@@ -92,7 +95,7 @@ public class CyclicLinkedList<T> {
      */
     public T getNext(T data) {
         if (head == null) {
-            throw new NoSuchElementException("The list is empty.");
+            throw new NoSuchElementException(LIST_EMPTY_EXCEPTION);
         }
 
         Node<T> current = head;
@@ -103,7 +106,7 @@ public class CyclicLinkedList<T> {
             current = current.next;
         } while (current != head);
 
-        throw new NoSuchElementException("The specified data is not in the list.");
+        throw new NoSuchElementException(NOT_FOUNT_IN_LIST_EXCEPTION);
     }
 
     /**
@@ -115,7 +118,7 @@ public class CyclicLinkedList<T> {
      */
     public void replace(int position, T data) {
         if (position >= size || position < 0) {
-            throw new IndexOutOfBoundsException("Invalid position: " + position);
+            throw new IndexOutOfBoundsException(INVALID_POSITION_EXCEPTION + position);
         }
         Node<T> temp = head;
         for (int i = 0; i < position; i++) {

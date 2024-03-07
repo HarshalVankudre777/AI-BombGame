@@ -11,9 +11,9 @@ import java.util.List;
  * @author uiiux
  */
 public class AICommandExecutor {
+    private static final String UNEXPECTED_VALUE_EXCEPTION = "Unexpected value: ";
     private final CyclicLinkedList<MemoryCell> memory;
     private final AICommands aiCommands;
-
     private MemoryCell currentCell;
     private final List<AI> stoppedAIList;
     private AI currentAI;
@@ -71,7 +71,7 @@ public class AICommandExecutor {
                 aiCommands.swap(currentAI);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + currentCell.getInstruction());
+                throw new IllegalStateException(UNEXPECTED_VALUE_EXCEPTION + currentCell.getInstruction());
         }
         currentCell = aiCommands.getCell();
     }

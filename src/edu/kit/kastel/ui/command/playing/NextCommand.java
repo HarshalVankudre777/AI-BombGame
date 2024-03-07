@@ -59,7 +59,7 @@ public class NextCommand implements Command {
         if (model.getStoppedAIList().isEmpty()) {
             return new CommandResult(CommandResultType.SUCCESS, null);
         }
-        if (!model.isAllAIsStopped()) {
+        if (!model.isAllAIsStopped() && model.getPlayingList().size() == model.getStoppedAIList().size()) {
             model.setAllAIsStopped(true);
             return new CommandResult(CommandResultType.SUCCESS, parseOutput(model.getStoppedAIList()));
         }

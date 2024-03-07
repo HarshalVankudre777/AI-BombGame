@@ -52,14 +52,14 @@ public class SetInitModeCommand implements Command {
             }
         }
         String message = null;
-        if (mode.equals(STOP_MODE_SYNTAX)) {
+        if (mode.equals(STOP_MODE_SYNTAX) && commandArguments.length == LOWER_LIMIT_NUMBER_OF_ARGUMENTS) {
             model.getMemoryInitializer().initializeWithDefault();
             if (model.getMemoryMode().equals(Mode.RANDOM)) {
                 message = CHANGED_MODE_TO_STOP_MESSAGE.formatted(model.getMemoryInitializer().getSeed());
             }
             model.setMemoryMode(Mode.STOP);
             return new CommandResult(CommandResultType.SUCCESS, message);
-        } else if (mode.equals(RANDOM_MODE_SYNTAX) && commandArguments.length == 2) {
+        } else if (mode.equals(RANDOM_MODE_SYNTAX) && commandArguments.length == UPPER_LIMIT_NUMBER_OF_ARGUMENTS) {
 
             if (model.getMemoryInitializer().getSeed() != seed) {
                 message = CHANGED_MODE_FROM_RANDOM_TO_RANDOM.formatted(model.getMemoryInitializer().getSeed(), seed);
