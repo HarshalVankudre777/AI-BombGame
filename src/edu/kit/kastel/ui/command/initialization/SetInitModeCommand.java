@@ -51,6 +51,7 @@ public class SetInitModeCommand implements Command {
                 return new CommandResult(CommandResultType.FAILURE, INVALID_SEED_ERROR);
             }
         }
+
         String message = null;
         if (mode.equals(STOP_MODE_SYNTAX) && commandArguments.length == LOWER_LIMIT_NUMBER_OF_ARGUMENTS) {
             model.getMemoryInitializer().initializeWithDefault();
