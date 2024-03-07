@@ -24,6 +24,7 @@ public final class Main {
     private static final int MEMORY_SIZE_INDEX = 0;
     private static final int LAST_MEMORY_SYMBOL_INDEX = 4;
     private static final int FIRST_AI_SYMBOL_INDEX = 5;
+    private static final int MINIMUM_ARGS = 9;
     private static final int MEMORY_SIZE_LIMIT = 1337;
 
     private Main() {
@@ -54,7 +55,7 @@ public final class Main {
      * @return     Program model
      */
     private static Optional<CodeFight> getCodeFight(String[] args) {
-        if (args.length % 2 == 0) {
+        if (args.length % 2 == 0 || args.length < MINIMUM_ARGS) {
             return Optional.empty();
         }
         int memorySize;
