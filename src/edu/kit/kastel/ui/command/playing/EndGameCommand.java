@@ -4,6 +4,7 @@ import edu.kit.kastel.model.CodeFight;
 import edu.kit.kastel.model.CyclicLinkedList;
 import edu.kit.kastel.model.ai.AI;
 import edu.kit.kastel.model.memory.MemoryCell;
+import edu.kit.kastel.model.memory.Mode;
 import edu.kit.kastel.ui.command.Command;
 import edu.kit.kastel.ui.command.CommandResult;
 import edu.kit.kastel.ui.command.CommandResultType;
@@ -61,6 +62,7 @@ public class EndGameCommand implements Command {
                 model.getRunningAI(),
                 model.getMemoryDefaultSymbol()
         );
+        model.getMemoryInitializer().initializeWithDefault();
         model.setPlayingPhase(false);
         model.getPlayingList().clear();
         model.getStoppedAIList().clear();
