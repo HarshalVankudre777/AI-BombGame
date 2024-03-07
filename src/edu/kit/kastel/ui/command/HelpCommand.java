@@ -1,6 +1,10 @@
 package edu.kit.kastel.ui.command;
 
 import edu.kit.kastel.model.CodeFight;
+import edu.kit.kastel.model.ai.InstructionName;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This commands provides help.
@@ -10,20 +14,23 @@ import edu.kit.kastel.model.CodeFight;
 public class HelpCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
+    private static final String ADD_AI_HELP_TEXT = "Adds a new AI into the game.";
+    private static final String REMOVE_AI_HELP_TEXT = "Removes a AI from the game.";
+    private static final String SET_INIT_HELP_TEXT = "Initializes the memory with either default values or random.";
+    private static final String START_GAME_HELP_TEXT = "The game progress to the playing phase with the specific AI's.";
+    private static final String NEXT_HELP_TEXT = "Executes next no of steps to be executed.";
+    private static final String SHOW_MEMORY_HELP_TEXT = "Shows either overview of memory or in detail.";
+    private static final String SHOW_AI_HELP_TEXT = "Shows the current state of the AI.";
+    private static final String END_GAME_HELP_TEXT = "Ends the game, the game switches back to the Initialization phase.";
 
-    private static final String INITIALIZATION_HELP_TEXT = """
-            add-ai: Adds a new AI into the game.
-            remove-ai: Removes a AI from the game.
-            set-init: Initializes the memory with either default values or random.
-            start-game: The game progress to the playing phase with the specifies AI's.
-            """;
+    private final Map<InstructionName, String> helpMap;
 
-    private static final String PLAYING_PHASE_HELP_TEXT = """
-            next: No of steps to be executed.
-            show-memory: Shows either overview of memory or in detail.
-            show-ai: Shows the current state of the AI.
-            end-game: Ends the game, the game switches back to the Initialization phase.
-            """;
+    /**
+     * Initializes the help map.
+     */
+    public HelpCommand() {
+        this.helpMap = new HashMap<>();
+    }
 
 
     /**
@@ -36,11 +43,8 @@ public class HelpCommand implements Command {
 
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
-        if (!model.isPlayingPhase()) {
-            return new CommandResult(CommandResultType.SUCCESS, INITIALIZATION_HELP_TEXT);
-        } else {
-            return new CommandResult(CommandResultType.SUCCESS, PLAYING_PHASE_HELP_TEXT);
-        }
+        return new CommandResult(CommandResultType.SUCCESS, null);
+
     }
 
 

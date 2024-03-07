@@ -23,6 +23,7 @@ public class AddAICommand implements Command {
     private static final String DUPLICATE_AI_NAME_ERROR = "AI with that name already exists.";
     private static final String INVALID_AI_INSTRUCTIONS_ERROR = "Invalid AI instructions.";
     private static final String ADDING_WHILE_PLAYING_ERROR = "Cannot add when the game is running!";
+    private static final String TOO_MANY_INSTRUCTIONS_ERROR = "Too many AI Commands";
     private static final String INSTRUCTION_SEPARATOR = ",";
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
@@ -53,6 +54,9 @@ public class AddAICommand implements Command {
             }
         }
         List<MemoryCell> instructionList = parseInstructions(commandArguments[AI_INSTRUCTIONS_INDEX]);
+        if (instructionList.size() > model.getMemorySize() / 2) {
+            return new CommandResult(CommandResultType.FAILURE, TOO_MANY_INSTRUCTIONS_ERROR);
+        }
 
         if (instructionList.isEmpty()) {
             return new CommandResult(CommandResultType.FAILURE, INVALID_AI_INSTRUCTIONS_ERROR);
