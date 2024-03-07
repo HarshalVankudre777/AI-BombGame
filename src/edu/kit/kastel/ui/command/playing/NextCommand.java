@@ -86,6 +86,7 @@ public class NextCommand implements Command {
         for (AI ai : stoppedAIList) {
             sb.append(STOPPED_AI_OUTPUT_FORMAT.formatted(ai.getName(), ai.getStepsExecuted()));
             sb.append(System.lineSeparator());
+            ai.incrementStepsExecuted();
         }
         return sb.toString().trim();
     }

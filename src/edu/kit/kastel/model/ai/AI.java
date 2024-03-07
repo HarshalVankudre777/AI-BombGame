@@ -19,9 +19,9 @@ public class AI {
     private int stepsExecuted = 0;
 
     private int currentAIPosition = 0;
+
     private int nextCellIndex;
     private boolean isStopped = false;
-
     /**
      * Initializes the AI.
      *
@@ -40,6 +40,13 @@ public class AI {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Increments the number of steps executed.
+     */
+    public void incrementStepsExecuted() {
+        this.stepsExecuted++;
     }
 
     /**
