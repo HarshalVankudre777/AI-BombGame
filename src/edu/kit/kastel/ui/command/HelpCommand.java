@@ -13,6 +13,14 @@ import java.util.Map;
 public class HelpCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
+    private static final String ADD_AI_COMMAND = "add-ai";
+    private static final String REMOVE_AI_COMMAND = "remove-ai";
+    private static final String SET_INIT_MODE_COMMAND = "set-init-mode";
+    private static final String START_GAME_COMMAND = "start-game";
+    private static final String END_GAME_COMMAND = "end-game";
+    private static final String NEXT_COMMAND = "next";
+    private static final String SHOW_AI_COMMAND = "show-ai";
+    private static final String SHOW_MEMORY_COMMAND = "show-memory";
     private static final String ADD_AI_HELP_TEXT = "Adds a new AI into the game.";
     private static final String REMOVE_AI_HELP_TEXT = "Removes a AI from the game.";
     private static final String SET_INIT_HELP_TEXT = "Initializes the memory with either default values or random.";
@@ -43,11 +51,31 @@ public class HelpCommand implements Command {
 
     @Override
     public CommandResult execute(CodeFight model, String[] commandArguments) {
+        // Clear the helpMap to ensure it only contains relevant commands for each execution
+        helpMap.clear();
 
-        return new CommandResult(CommandResultType.SUCCESS, helpMap.toString());
+        if (!model.isPlayingPhase()) {
+            helpMap.put(ADD_AI_COMMAND, ADD_AI_HELP_TEXT);
+            helpMap.put(REMOVE_AI_COMMAND, REMOVE_AI_HELP_TEXT);
+            helpMap.put(SET_INIT_MODE_COMMAND, SET_INIT_HELP_TEXT);
+            helpMap.put(START_GAME_COMMAND, START_GAME_HELP_TEXT);
+        } else {
 
+            helpMap.put(NEXT_COMMAND, NEXT_HELP_TEXT);
+            helpMap.put(SHOW_MEMORY_COMMAND, SHOW_MEMORY_HELP_TEXT);
+            helpMap.put(SHOW_AI_COMMAND, SHOW_AI_HELP_TEXT);
+            helpMap.put(END_GAME_COMMAND, END_GAME_HELP_TEXT);
+        }
 
+        StringBuilder helpText = new StringBuilder();
+        for (Map.Entry<String, String> entry : helpMap.entrySet()) {
+            helpText.append(String.format(HELP_FORMAT, entry.getKey(), entry.getValue()));
+            helpText.append(System.lineSeparator());
+        }
+
+        return new CommandResult(CommandResultType.SUCCESS, helpText.toString().trim());
     }
+
 
 
     /**
