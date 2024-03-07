@@ -52,7 +52,7 @@ public class StartGameCommand implements Command {
             boolean aiFound = false;
             for (AI ai : model.getListOfAI()) {
                 if (argument.equals(ai.getName())) {
-                    model.getPlayingList().add(ai);
+                    model.getPlayingList().add(copyAI(ai, ai.getName()));
                     aiFound = true;
                     break;
                 }

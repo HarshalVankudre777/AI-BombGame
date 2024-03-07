@@ -51,21 +51,6 @@ public class AI {
         this.defaultSymbol = defaultSymbol;
     }
 
-    /**
-     * Resets the number of steps executed.
-     */
-    public void resetStepsExecuted() {
-        stepsExecuted = 0;
-    }
-
-    /**
-     * Resets the currentAI position.
-     * Resets the next cell index.
-     */
-    public void resetAIPositions() {
-        currentAIPosition = 0;
-        nextCellIndex = 0;
-    }
 
     /**
      * Sets the bomb symbol of AI.
