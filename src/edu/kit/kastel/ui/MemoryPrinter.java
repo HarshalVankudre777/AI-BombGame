@@ -45,6 +45,9 @@ public class MemoryPrinter {
         int maxFirstArgLength = 0;
         int maxSecondArgLength = 0;
         for (int i = 0; i < CELLS_TO_SHOW; i++) {
+            if (memory.getNext(currentCell).equals(startingCell)) {
+                break;
+            }
             InstructionName name = currentCell.getInstruction();
             int currentCellPosition = memory.getPosition(currentCell);
             maxPosLength = Math.max(maxPosLength, String.valueOf(currentCellPosition).length());
@@ -52,9 +55,7 @@ public class MemoryPrinter {
             maxFirstArgLength = Math.max(maxFirstArgLength, String.valueOf(currentCell.getFirstArgument()).length());
             maxSecondArgLength = Math.max(maxSecondArgLength, String.valueOf(currentCell.getSecondArgument()).length());
             currentCell = memory.getNext(currentCell);
-            if (currentCell.equals(startingCell)) {
-                break;
-            }
+
         }
 
         String dynamicFormatPattern = String.format(PRINT_DETAIL_FORMAT,
@@ -63,6 +64,9 @@ public class MemoryPrinter {
 
         currentCell = startingCell;
         for (int i = 0; i < CELLS_TO_SHOW; i++) {
+            if (memory.getNext(currentCell).equals(startingCell)) {
+                break;
+            }
             int currentCellPosition = memory.getPosition(currentCell);
             String formattedLine = String.format(dynamicFormatPattern,
                     currentCell.getCurrentSymbol(), currentCellPosition,
@@ -71,9 +75,6 @@ public class MemoryPrinter {
 
             sb.append(formattedLine);
             currentCell = memory.getNext(currentCell);
-            if (currentCell.equals(startingCell)) {
-                break;
-            }
         }
 
         sb.insert(0, printOverViewWithBounds(startingCell, currentCell) + System.lineSeparator());
