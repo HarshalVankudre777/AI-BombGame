@@ -108,9 +108,9 @@ public class CodeFight {
         for (int i = 0; i < runningAI.size(); i++) {
             runningAI.get(i).setStartIndex(i * memoryPerAI);
             if (runningAI.get(i).equals(currentAI)) {
-                memory.get(i * memoryPerAI).setCurrentSymbol(getCurrentSymbol());
+                memory.get(runningAI.get(i).getNextCellIndex()).setCurrentSymbol(getCurrentSymbol());
             } else {
-                memory.get(i * memoryPerAI).setCurrentSymbol(getOtherSymbol());
+                memory.get(runningAI.get(i).getNextCellIndex()).setCurrentSymbol(getOtherSymbol());
             }
         }
     }

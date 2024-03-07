@@ -112,8 +112,16 @@ public class AI {
      * @param startIndex start index of the AI
      */
     public void setStartIndex(int startIndex) {
-        currentAIPosition = startIndex;
-        nextCellIndex = startIndex;
+        int incrementValue = 0;
+        for (MemoryCell aiCommand : aiCommands) {
+            if (aiCommand.getInstruction().equals(InstructionName.STOP)) {
+                incrementValue++;
+            } else {
+                break;
+            }
+        }
+        currentAIPosition = startIndex + incrementValue;
+        nextCellIndex = currentAIPosition;
     }
 
     /**
