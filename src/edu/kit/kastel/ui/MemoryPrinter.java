@@ -40,7 +40,6 @@ public class MemoryPrinter {
         MemoryCell startingCell = currentCell;
         StringBuilder sb = new StringBuilder();
 
-        // Determine maximum lengths for formatting
         int maxPosLength = 0;
         int maxNameLength = 0;
         int maxFirstArgLength = 0;
@@ -53,14 +52,15 @@ public class MemoryPrinter {
             maxFirstArgLength = Math.max(maxFirstArgLength, String.valueOf(currentCell.getFirstArgument()).length());
             maxSecondArgLength = Math.max(maxSecondArgLength, String.valueOf(currentCell.getSecondArgument()).length());
             currentCell = memory.getNext(currentCell);
+            if (currentCell.equals(startingCell)) {
+                break;
+            }
         }
 
-        // Construct the dynamic format pattern based on calculated max lengths
         String dynamicFormatPattern = String.format(PRINT_DETAIL_FORMAT,
                 maxPosLength, maxNameLength,
                 maxFirstArgLength, maxSecondArgLength);
 
-        // Reset to the starting cell for actual printing
         currentCell = startingCell;
         for (int i = 0; i < CELLS_TO_SHOW; i++) {
             int currentCellPosition = memory.getPosition(currentCell);
@@ -71,6 +71,9 @@ public class MemoryPrinter {
 
             sb.append(formattedLine);
             currentCell = memory.getNext(currentCell);
+            if (currentCell.equals(startingCell)) {
+                break;
+            }
         }
 
         sb.insert(0, printOverViewWithBounds(startingCell, currentCell) + System.lineSeparator());
