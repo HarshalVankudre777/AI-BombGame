@@ -95,16 +95,14 @@ public class CodeFight {
         for (int i = 0; i < playingListSize; i++) {
             AI ai = playingList.get(i);
             int memoryPerAI = tempSize / (playingListSize - i);
+            tempSize -= memoryPerAI;
+            ai.setMemoryAllocated(memoryPerAI);
             if (ai.getAiCommands().size() > memoryPerAI) {
                 return false;
             }
-
             for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
                 getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));
             }
-
-            tempSize -= memoryPerAI;
-            ai.setMemoryAllocated(memoryPerAI);
             baseIndex += memoryPerAI;
         }
         return true;
