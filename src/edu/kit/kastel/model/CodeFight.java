@@ -84,6 +84,7 @@ public class CodeFight {
 
     /**
      * Loads AI commands into the simulation memory based on the AI list.
+     * @return true is memory is loaded
      */
     public boolean loadMemory() {
         int tempSize = memorySize;
