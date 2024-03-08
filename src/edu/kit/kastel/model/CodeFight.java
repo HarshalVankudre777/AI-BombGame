@@ -97,6 +97,7 @@ public class CodeFight {
             int memoryPerAI = tempSize / (playingListSize - i);
             tempSize -= memoryPerAI;
             ai.setMemoryAllocated(memoryPerAI);
+            System.out.println(ai.getName() + " " + ai.getAiCommands().size() + " " + ai.getMemoryAllocated());
             if (ai.getAiCommands().size() > memoryPerAI) {
                 return false;
             }

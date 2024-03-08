@@ -69,6 +69,7 @@ public class StartGameCommand implements Command {
             model.getRunningAI().add(ai);
         }
         if (!model.loadMemory()) {
+            model.getPlayingList().clear();
             return new CommandResult(CommandResultType.FAILURE, AI_TOO_BIG_ERROR);
         }
         model.assignSymbols();
