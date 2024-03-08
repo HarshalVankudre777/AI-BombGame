@@ -24,7 +24,7 @@ public class NextCommand implements Command {
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 1;
     private static final int STEPS_INDEX = 0;
 
-    private List<AI> alreadyStopped;
+    private final List<AI> alreadyStopped;
 
 
     /**
@@ -65,6 +65,7 @@ public class NextCommand implements Command {
                 break;
             }
             model.updateAI();
+            System.out.println(model.getCurrentAI().getName() + " " + i);
             updateNextSymbols(model);
 
         }

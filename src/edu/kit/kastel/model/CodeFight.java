@@ -190,6 +190,9 @@ public class CodeFight {
      * Updates the current AI to the next AI in the cycle.
      */
     public void updateAI() {
+        if (runningAI.getNext(currentAI).isStopped()) {
+            return;
+        }
         currentAI = runningAI.getNext(currentAI);
     }
 
