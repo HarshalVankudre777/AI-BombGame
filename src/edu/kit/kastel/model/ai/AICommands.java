@@ -115,7 +115,10 @@ public  class AICommands {
         MemoryCell targetCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell checkCell = memory.get(cellPosition + cell.getSecondArgument());
         if (checkCell.getSecondArgument() == 0) {
+            System.out.println("jumped lol");
             cell = targetCell;
+        } else {
+            cell = memory.getNext(cell);
         }
     }
 
