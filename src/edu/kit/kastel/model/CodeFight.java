@@ -89,17 +89,19 @@ public class CodeFight {
         int tempSize = memorySize;
         List<AI> playingList = getPlayingList();
         int playingListSize = playingList.size();
-
+        int baseIndex = 0;
 
         for (int i = 0; i < playingListSize; i++) {
             AI ai = playingList.get(i);
             int memoryPerAI = tempSize / (playingListSize - i);
 
-
+            for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
+                getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));
+            }
 
             tempSize -= memoryPerAI;
             ai.setMemoryAllocated(memoryPerAI);
-
+            baseIndex += memoryPerAI;
         }
     }
 
@@ -111,12 +113,8 @@ public class CodeFight {
         aiCommandExecutor = new AICommandExecutor(getMemory(), stoppedAIList);
         currentAI = runningAI.get(AI_HEAD_INDEX);
         int memoryPerAI = 0;
-        int baseIndex = 0;
         for (int i = 0; i < runningAI.size(); i++) {
             AI ai = runningAI.get(i);
-            for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
-                getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));
-            }
             ai.setStartIndex(memoryPerAI);
             memoryPerAI = ai.getMemoryAllocated() + memoryPerAI;
             if (runningAI.get(i).equals(currentAI)) {
@@ -124,7 +122,6 @@ public class CodeFight {
             } else {
                 memory.get(runningAI.get(i).getNextCellIndex()).setCurrentSymbol(getOtherSymbol());
             }
-            baseIndex += memoryPerAI;
         }
     }
 
