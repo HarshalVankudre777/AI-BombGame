@@ -22,6 +22,7 @@ public class StartGameCommand implements Command {
     private static final String AI_DOES_NOT_EXIST = "AI %s does not exist.";
     private static final String GAME_STARTED_MESSAGE = "Game started.";
     private static final String GAME_HAS_ALREADY_STARTED_ERROR = "Game is already running.";
+    private static final String AI_TOO_BIG_ERROR = "AI has too many commands";
     private static final String NAME_INDEX_SEPARATOR = "#";
     private static final int NUMBER_OF_SYMBOLS_PER_AI = 2;
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 2;
@@ -69,6 +70,11 @@ public class StartGameCommand implements Command {
         }
         model.assignSymbols();
         model.loadMemory();
+        for (AI ai : model.getPlayingList()) {
+            if (ai.getAiCommands().size() > ai.getMemoryAllocated()) {
+                return new CommandResult(CommandResultType.FAILURE, AI_TOO_BIG_ERROR);
+            }
+        }
         model.gameHandler();
         model.setPlayingPhase(true);
         model.setAllAIsStopped(false);
