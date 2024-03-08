@@ -8,6 +8,7 @@ import edu.kit.kastel.ui.command.Command;
 import edu.kit.kastel.ui.command.CommandResult;
 import edu.kit.kastel.ui.command.CommandResultType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,17 @@ public class NextCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 1;
     private static final int STEPS_INDEX = 0;
+
+    private List<AI> alreadyStopped;
+
+
+    /**
+     * Initializes a new list for AIs that are already stopped.
+     */
+
+    public NextCommand() {
+        alreadyStopped = new ArrayList<>();
+    }
 
     /**
      * Executes the command.
@@ -86,11 +98,17 @@ public class NextCommand implements Command {
     private String parseOutput(List<AI> stoppedAIList) {
         StringBuilder sb = new StringBuilder();
         for (AI ai : stoppedAIList) {
+            if (alreadyStopped.contains(ai)) {
+                continue;
+            }
+            alreadyStopped.add(ai);
             sb.append(STOPPED_AI_OUTPUT_FORMAT.formatted(ai.getName(), ai.getStepsExecuted()));
-            sb.append(System.lineSeparator());
             ai.incrementStepsExecuted();
         }
-        return sb.toString().trim();
+       if (!sb.isEmpty()) {
+           return sb.toString().trim();
+       }
+       return null;
     }
 
     /**
