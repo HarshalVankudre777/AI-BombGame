@@ -38,7 +38,7 @@ public final class Main {
      * @param args command arguments of the program
      */
     public static void main(String[] args) {
-        //args = "55 🟫 🟤 🟥 🟧 🟨 🟡 🟦 🔵 🟩 🟢 🟪 🟣".split(" ");
+       // args = "55 🟫 🟤 🟥 🟧 🟨 🟡 🟦 🔵 🟩 🟢 🟪 🟣".split(" ");
         Optional<CodeFight> codeFight = getCodeFight(args);
         if (codeFight.isPresent()) {
             CommandHandler commandHandler = new CommandHandler(codeFight.get());

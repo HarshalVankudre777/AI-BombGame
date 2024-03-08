@@ -59,6 +59,7 @@ public class StartGameCommand implements Command {
                 }
             }
             if (!aiFound) {
+                model.getPlayingList().clear();
                 return new CommandResult(CommandResultType.FAILURE, String.format(AI_DOES_NOT_EXIST, argument));
             }
         }
