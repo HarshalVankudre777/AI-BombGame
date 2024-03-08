@@ -67,10 +67,12 @@ public  class AICommands {
 
     /**
      * Adds the first Argument of cell to the second Argument.
+     * @param currentAI Current AI
      */
-    public void add() {
+    public void add(AI currentAI) {
         int modifiedSecondArgument = cell.getFirstArgument() + cell.getSecondArgument();
         cell.setSecondArgument(modifiedSecondArgument);
+        assignSymbol(currentAI, cell, cell);
         cell = memory.getNext(cell);
 
 
@@ -131,8 +133,8 @@ public  class AICommands {
 
         first.setFirstArgument(second.getSecondArgument());
         second.setSecondArgument(first.getFirstArgument());
-        assignSymbol(currentAI, second, second);
         assignSymbol(currentAI, first, first);
+        assignSymbol(currentAI, second, second);
         cell = memory.getNext(cell);
     }
 

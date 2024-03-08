@@ -53,7 +53,7 @@ public class AICommandExecutor {
                 aiCommands.movI(currentAI);
                 break;
             case ADD:
-                aiCommands.add();
+                aiCommands.add(currentAI);
                 break;
             case ADD_R:
                 aiCommands.addR(currentAI);
