@@ -65,18 +65,18 @@ public class StartGameCommand implements Command {
             }
         }
         renameDuplicates(model);
-        for (AI ai : model.getPlayingList()) {
-            model.getRunningAI().add(ai);
-        }
+        model.assignSymbols();
         if (!model.loadMemory()) {
             model.getPlayingList().clear();
             return new CommandResult(CommandResultType.FAILURE, AI_TOO_BIG_ERROR);
         }
-        model.assignSymbols();
-
+        for (AI ai : model.getPlayingList()) {
+            model.getRunningAI().add(ai);
+        }
         model.gameHandler();
-        model.setPlayingPhase(true);
         model.setAllAIsStopped(false);
+        model.setPlayingPhase(true);
+
         return new CommandResult(CommandResultType.SUCCESS, GAME_STARTED_MESSAGE);
     }
 

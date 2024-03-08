@@ -22,7 +22,8 @@ public class AI {
     private int memoryAllocated = 0;
 
     private int nextCellIndex;
-    private boolean isStopped = false;
+
+    private boolean stopped = false;
 
     /**
      * Initializes the AI.
@@ -60,6 +61,15 @@ public class AI {
         this.defaultSymbol = defaultSymbol;
     }
 
+
+    /**
+     * Checks if the AI is stopped.
+     *
+     * @return true is AI is stopped
+     */
+    public boolean isStopped() {
+        return stopped;
+    }
 
     /**
      * Sets the bomb symbol of AI.
@@ -131,7 +141,7 @@ public class AI {
      * Stops the AI.
      */
     public void setStopped() {
-        isStopped = true;
+        stopped = true;
     }
 
     /**
@@ -146,7 +156,7 @@ public class AI {
         aiCommandExecutor.setCurrentCell(currentAIPosition);
         aiCommandExecutor.setCurrentAI(this);
         aiCommandExecutor.executeCommand();
-        if (!isStopped) {
+        if (!stopped) {
             stepsExecuted++;
             updateAIPosition(aiCommandExecutor.getNextCellIndex());
             nextCellIndex = aiCommandExecutor.getNextCellIndex();
