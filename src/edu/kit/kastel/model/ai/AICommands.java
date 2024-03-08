@@ -92,7 +92,6 @@ public  class AICommands {
         if (isBomb(targetCell)) {
             targetCell.setCurrentSymbol(currentAI.getBombSymbol());
             targetCell.setDefaultSymbol(currentAI.getBombSymbol());
-            System.out.println(currentAI.getBombSymbol());
         }
         cell = memory.getNext(cell);
     }
