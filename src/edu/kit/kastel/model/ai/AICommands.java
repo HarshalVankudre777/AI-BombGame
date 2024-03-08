@@ -132,7 +132,7 @@ public  class AICommands {
         }
         first.setFirstArgument(second.getSecondArgument());
         assignSymbol(currentAI, second, first);
-       assignSymbol(currentAI, first, second);
+        assignSymbol(currentAI, first, second);
         second.setSecondArgument(first.getFirstArgument());
         cell = memory.getNext(cell);
     }
