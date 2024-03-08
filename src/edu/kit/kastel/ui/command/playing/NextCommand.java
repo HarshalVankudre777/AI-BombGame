@@ -103,6 +103,7 @@ public class NextCommand implements Command {
             }
             alreadyStopped.add(ai);
             sb.append(STOPPED_AI_OUTPUT_FORMAT.formatted(ai.getName(), ai.getStepsExecuted()));
+            sb.append(System.lineSeparator());
             ai.incrementStepsExecuted();
         }
         if (!sb.isEmpty()) {
