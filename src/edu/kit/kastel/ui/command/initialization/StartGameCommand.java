@@ -68,13 +68,11 @@ public class StartGameCommand implements Command {
         for (AI ai : model.getPlayingList()) {
             model.getRunningAI().add(ai);
         }
-        model.assignSymbols();
-        model.loadMemory();
-        for (AI ai : model.getPlayingList()) {
-            if (ai.getAiCommands().size() > ai.getMemoryAllocated()) {
-                return new CommandResult(CommandResultType.FAILURE, AI_TOO_BIG_ERROR);
-            }
+        if (!model.loadMemory()) {
+            return new CommandResult(CommandResultType.FAILURE, AI_TOO_BIG_ERROR);
         }
+        model.assignSymbols();
+
         model.gameHandler();
         model.setPlayingPhase(true);
         model.setAllAIsStopped(false);

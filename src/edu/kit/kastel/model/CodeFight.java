@@ -85,7 +85,7 @@ public class CodeFight {
     /**
      * Loads AI commands into the simulation memory based on the AI list.
      */
-    public void loadMemory() {
+    public boolean loadMemory() {
         int tempSize = memorySize;
         List<AI> playingList = getPlayingList();
         int playingListSize = playingList.size();
@@ -94,6 +94,9 @@ public class CodeFight {
         for (int i = 0; i < playingListSize; i++) {
             AI ai = playingList.get(i);
             int memoryPerAI = tempSize / (playingListSize - i);
+            if (ai.getAiCommands().size() > memoryPerAI) {
+                return false;
+            }
 
             for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
                 getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));
@@ -103,6 +106,7 @@ public class CodeFight {
             ai.setMemoryAllocated(memoryPerAI);
             baseIndex += memoryPerAI;
         }
+        return true;
     }
 
 
