@@ -74,18 +74,23 @@ public class CyclicLinkedList<T> {
 
     /**
      * Gets an object from the list.
-     *
+     * Normalized position is there to handle negative values
      * @param position position of the object
      * @return object
+     * @throws NoSuchElementException if the list is empty
      */
     public T get(int position) {
-
+        if (head == null) {
+            throw new NoSuchElementException(LIST_EMPTY_EXCEPTION);
+        }
+        int normalizedPosition = (position % size + size) % size;
         Node<T> temp = head;
-        for (int i = 0; i < position; i++) {
+        for (int i = 0; i < normalizedPosition; i++) {
             temp = temp.next;
         }
         return temp.data;
     }
+
     /**
      * Gets the data of the node that follows the first node containing the specified data.
      *

@@ -42,10 +42,7 @@ public  class AICommands {
         MemoryCell clonedCell = sourceCell.duplicate();
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
         int targetPosition = memory.getPosition(targetCell);
-        if (isBomb(sourceCell)) {
-            clonedCell.setCurrentSymbol(currentAI.getBombSymbol());
-            clonedCell.setDefaultSymbol(currentAI.getBombSymbol());
-        }
+        assignSymbol(currentAI, sourceCell, clonedCell);
         memory.replace(targetPosition, clonedCell);
         cell = memory.getNext(cell);
 
@@ -62,10 +59,7 @@ public  class AICommands {
         int intermediateCellPosition = memory.getPosition(intermediateCell);
         MemoryCell targetCell = memory.get(intermediateCellPosition + intermediateCell.getSecondArgument());
         int targetPosition = memory.getPosition(targetCell);
-        if (isBomb(sourceCell)) {
-            clonedCell.setCurrentSymbol(currentAI.getBombSymbol());
-            clonedCell.setDefaultSymbol(currentAI.getBombSymbol());
-        }
+        assignSymbol(currentAI, sourceCell, clonedCell);
         memory.replace(targetPosition, clonedCell);
         cell = memory.getNext(cell);
 
@@ -89,10 +83,7 @@ public  class AICommands {
     public void addR(AI currentAI) {
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
         targetCell.setSecondArgument(cell.getFirstArgument() + targetCell.getSecondArgument());
-        if (isBomb(targetCell)) {
-            targetCell.setCurrentSymbol(currentAI.getBombSymbol());
-            targetCell.setDefaultSymbol(currentAI.getBombSymbol());
-        }
+        assignSymbol(currentAI, targetCell, targetCell);
         cell = memory.getNext(cell);
     }
 
@@ -114,8 +105,6 @@ public  class AICommands {
      */
     public void jmp() {
         cell =  memory.get(cellPosition + cell.getFirstArgument());
-
-
 
     }
 
@@ -142,10 +131,8 @@ public  class AICommands {
             second.setDefaultSymbol(currentAI.getBombSymbol());
         }
         first.setFirstArgument(second.getSecondArgument());
-        if (isBomb(second)) {
-            first.setCurrentSymbol(currentAI.getBombSymbol());
-            second.setCurrentSymbol(currentAI.getBombSymbol());
-        }
+        assignSymbol(currentAI, second, first);
+       assignSymbol(currentAI, first, second);
         second.setSecondArgument(first.getFirstArgument());
         cell = memory.getNext(cell);
     }
@@ -198,4 +185,15 @@ public  class AICommands {
         return memory.getPosition(cell);
     }
 
+
+    private void assignSymbol(AI currentAI, MemoryCell checkCell, MemoryCell targetCell) {
+        if (isBomb(checkCell)) {
+            targetCell.setCurrentSymbol(currentAI.getBombSymbol());
+            targetCell.setDefaultSymbol(currentAI.getBombSymbol());
+        } else {
+            targetCell.setCurrentSymbol(currentAI.getDefaultSymbol());
+            targetCell.setDefaultSymbol(currentAI.getDefaultSymbol());
+        }
+
+    }
 }
