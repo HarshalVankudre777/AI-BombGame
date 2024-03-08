@@ -65,7 +65,6 @@ public class NextCommand implements Command {
                 break;
             }
             model.updateAI();
-            System.out.println(model.getCurrentAI().getName() + " " + i);
             updateNextSymbols(model);
 
         }
