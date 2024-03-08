@@ -128,14 +128,11 @@ public  class AICommands {
     public void swap(AI currentAI) {
         MemoryCell first = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell second = memory.get(cellPosition + cell.getSecondArgument());
-        if (isBomb(first)) {
-            second.setCurrentSymbol(currentAI.getBombSymbol());
-            second.setDefaultSymbol(currentAI.getBombSymbol());
-        }
+
         first.setFirstArgument(second.getSecondArgument());
-        assignSymbol(currentAI, second, first);
-        assignSymbol(currentAI, first, second);
         second.setSecondArgument(first.getFirstArgument());
+        assignSymbol(currentAI, second, second);
+        assignSymbol(currentAI, first, first);
         cell = memory.getNext(cell);
     }
 
