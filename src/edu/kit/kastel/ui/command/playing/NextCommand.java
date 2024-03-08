@@ -105,10 +105,10 @@ public class NextCommand implements Command {
             sb.append(STOPPED_AI_OUTPUT_FORMAT.formatted(ai.getName(), ai.getStepsExecuted()));
             ai.incrementStepsExecuted();
         }
-       if (!sb.isEmpty()) {
-           return sb.toString().trim();
-       }
-       return null;
+        if (!sb.isEmpty()) {
+            return sb.toString().trim();
+        }
+        return null;
     }
 
     /**
