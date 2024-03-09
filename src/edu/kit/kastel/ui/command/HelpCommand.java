@@ -56,7 +56,6 @@ public class HelpCommand implements Command {
             helpMap.put(SET_INIT_MODE_COMMAND, SET_INIT_HELP_TEXT);
             helpMap.put(START_GAME_COMMAND, START_GAME_HELP_TEXT);
         } else {
-            // Playing phase commands
             helpMap.put(END_GAME_COMMAND, END_GAME_HELP_TEXT);
             helpMap.put(HELP_COMMAND, HELP_TEXT);
             helpMap.put(QUIT_COMMAND, QUIT_TEXT);

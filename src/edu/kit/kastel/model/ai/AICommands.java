@@ -68,6 +68,7 @@ public class AICommands {
     public void add() {
         int result = cell.getFirstArgument() + cell.getSecondArgument();
         cell.setSecondArgument(result);
+        assignSymbol(currentAI, cell, cell);
         cell = memory.getNext(cell);
     }
 
@@ -78,6 +79,7 @@ public class AICommands {
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
         int result = cell.getFirstArgument() + targetCell.getSecondArgument();
         targetCell.setSecondArgument(result);
+        assignSymbol(currentAI, cell, targetCell);
         cell = memory.getNext(cell);
     }
 
@@ -122,6 +124,8 @@ public class AICommands {
         int temp = firstCell.getFirstArgument();
         firstCell.setFirstArgument(secondCell.getSecondArgument());
         secondCell.setSecondArgument(temp);
+        assignSymbol(currentAI,firstCell, secondCell);
+        assignSymbol(currentAI, secondCell, firstCell);
         cell = memory.getNext(cell);
     }
 
