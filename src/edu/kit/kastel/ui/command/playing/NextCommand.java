@@ -58,12 +58,14 @@ public class NextCommand implements Command {
             }
         }
         for (int i = 0; i < cellsToExecute; i++) {
-
             model.getCurrentAI().execute(model.getAiCommandExecutor());
             if (model.getStoppedAIList().size() == model.getRunningAI().size()) {
                 break;
             }
-            model.updateAI();
+            do {
+                model.updateAI();
+            } while (model.getCurrentAI().isStopped());
+
             updateNextSymbols(model);
 
         }

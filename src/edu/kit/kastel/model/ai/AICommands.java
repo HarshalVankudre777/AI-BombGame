@@ -61,7 +61,8 @@ public  class AICommands {
         int targetPosition = memory.getPosition(targetCell);
         assignSymbol(currentAI, sourceCell, clonedCell);
         memory.replace(targetPosition, clonedCell);
-        cell = memory.getNext(cell);
+        MemoryCell nextCell = memory.getNext(cell);
+        cell = nextCell;
 
     }
 
