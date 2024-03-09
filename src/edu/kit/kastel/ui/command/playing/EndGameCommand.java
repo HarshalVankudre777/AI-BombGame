@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * This commands ends the game.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class EndGameCommand implements Command {
     private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";

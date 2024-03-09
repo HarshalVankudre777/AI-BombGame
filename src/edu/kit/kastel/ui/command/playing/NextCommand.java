@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * This commands executes the next steps.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class NextCommand implements Command {
     private static final String INVALID_STEPS_ERROR = "Invalid Steps!";

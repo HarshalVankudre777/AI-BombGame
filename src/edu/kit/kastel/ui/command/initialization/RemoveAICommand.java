@@ -9,7 +9,7 @@ import edu.kit.kastel.ui.command.CommandResultType;
 /**
  * This command removes an AI.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class RemoveAICommand implements Command {
 

@@ -10,7 +10,7 @@ import edu.kit.kastel.ui.command.CommandResultType;
 /**
  * This command shows the state of the AI.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class ShowAiCommand implements Command {
     private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";

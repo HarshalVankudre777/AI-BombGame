@@ -8,7 +8,7 @@ import java.util.TreeMap;
 /**
  * This Commands displays help for the current Phase.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class HelpCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;

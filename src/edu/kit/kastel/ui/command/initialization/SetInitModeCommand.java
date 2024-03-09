@@ -8,7 +8,7 @@ import edu.kit.kastel.ui.command.CommandResultType;
 
 /**
  * This Commands sets the Mode of the Memory.
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class SetInitModeCommand implements Command {
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 1;

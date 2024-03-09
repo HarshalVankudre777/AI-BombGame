@@ -8,7 +8,7 @@ import edu.kit.kastel.ui.command.CommandResultType;
 /**
  * This class represents a command that shows the memory.
  *
- * @author Programmieren-Team
+ * @author uiiux
  */
 public class ShowMemoryCommand implements Command {
     private static final String GAME_NOT_STARTED_ERROR = "Game not yet started.";

@@ -15,7 +15,8 @@ import java.util.List;
 
 /**
  * This command adds an AI to the codefight.
- * @author Programmieren-Team
+ *
+ * @author uiiux
  * @version 1.0
  */
 public class AddAICommand implements Command {
