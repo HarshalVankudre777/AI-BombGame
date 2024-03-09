@@ -90,7 +90,7 @@ public class AICommands {
         MemoryCell firstCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell secondCell = memory.get(cellPosition + cell.getSecondArgument());
         if (firstCell.getFirstArgument() != secondCell.getSecondArgument()) {
-            cell = memory.getNext(memory.getNext(cell)); // Skipping next cell
+            cell = memory.getNext(memory.getNext(cell));
         } else {
             cell = memory.getNext(cell);
         }
@@ -124,8 +124,8 @@ public class AICommands {
         int temp = firstCell.getFirstArgument();
         firstCell.setFirstArgument(secondCell.getSecondArgument());
         secondCell.setSecondArgument(temp);
-        assignSymbol(firstCell, secondCell);
-        assignSymbol(secondCell, firstCell);
+        assignSymbol(firstCell, firstCell);
+        assignSymbol(secondCell, secondCell);
         cell = memory.getNext(cell);
     }
 
