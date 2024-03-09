@@ -124,7 +124,7 @@ public class AICommands {
         int temp = firstCell.getFirstArgument();
         firstCell.setFirstArgument(secondCell.getSecondArgument());
         secondCell.setSecondArgument(temp);
-        assignSymbol(currentAI,firstCell, secondCell);
+        assignSymbol(currentAI, firstCell, secondCell);
         assignSymbol(currentAI, secondCell, firstCell);
         cell = memory.getNext(cell);
     }
