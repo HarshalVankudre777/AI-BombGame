@@ -131,12 +131,15 @@ public  class AICommands {
         MemoryCell first = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell second = memory.get(cellPosition + cell.getSecondArgument());
 
+        int temp = first.getFirstArgument();
         first.setFirstArgument(second.getSecondArgument());
-        second.setSecondArgument(first.getFirstArgument());
+        second.setSecondArgument(temp);
         assignSymbol(currentAI, first, first);
         assignSymbol(currentAI, second, second);
+
         cell = memory.getNext(cell);
     }
+
 
     /**
      * Gets the current cell.
