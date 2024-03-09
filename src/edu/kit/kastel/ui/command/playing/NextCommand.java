@@ -62,9 +62,12 @@ public class NextCommand implements Command {
             if (model.getStoppedAIList().size() == model.getRunningAI().size()) {
                 break;
             }
-            do {
+            for (int j = 0; j < model.getRunningAI().size(); j++) {
                 model.updateAI();
-            } while (model.getCurrentAI().isStopped());
+                if (!model.getCurrentAI().isStopped()) {
+                    break;
+                }
+            }
 
             updateNextSymbols(model);
 
