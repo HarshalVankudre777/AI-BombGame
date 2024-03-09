@@ -16,7 +16,6 @@ public class AICommandExecutor {
     private final AICommands aiCommands;
     private MemoryCell currentCell;
     private final List<AI> stoppedAIList;
-    private AI currentAI;
 
     /**
      * Initializes the AI command Executor.
@@ -42,36 +41,18 @@ public class AICommandExecutor {
         currentCell.setCurrentSymbol(currentCell.getDefaultSymbol());
         int cellPosition = memory.getPosition(currentCell);
         aiCommands.setCellPosition(cellPosition);
+
         switch (currentCell.getInstruction()) {
-            case STOP:
-                aiCommands.stop(stoppedAIList, currentAI);
-                break;
-            case MOV_R:
-                aiCommands.movR(currentAI);
-                break;
-            case MOV_I:
-                aiCommands.movI(currentAI);
-                break;
-            case ADD:
-                aiCommands.add(currentAI);
-                break;
-            case ADD_R:
-                aiCommands.addR(currentAI);
-                break;
-            case JMP:
-                aiCommands.jmp();
-                break;
-            case JMZ:
-                aiCommands.jmz();
-                break;
-            case CMP:
-                aiCommands.cmp();
-                break;
-            case SWAP:
-                aiCommands.swap(currentAI);
-                break;
-            default:
-                throw new IllegalStateException(UNEXPECTED_VALUE_EXCEPTION + currentCell.getInstruction());
+            case STOP -> aiCommands.stop(stoppedAIList);
+            case MOV_R -> aiCommands.movR();
+            case MOV_I -> aiCommands.movI();
+            case ADD -> aiCommands.add();
+            case ADD_R -> aiCommands.addR();
+            case JMP -> aiCommands.jmp();
+            case JMZ -> aiCommands.jmz();
+            case CMP -> aiCommands.cmp();
+            case SWAP -> aiCommands.swap();
+            default -> throw new IllegalStateException(UNEXPECTED_VALUE_EXCEPTION + currentCell.getInstruction());
         }
         currentCell = aiCommands.getCell();
     }
@@ -101,7 +82,7 @@ public class AICommandExecutor {
      * @param currentAI current AI
      */
     public void setCurrentAI(AI currentAI) {
-        this.currentAI = currentAI;
+        aiCommands.setCurrentAI(currentAI);
     }
 
 }

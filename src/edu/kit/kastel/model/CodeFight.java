@@ -101,7 +101,6 @@ public class CodeFight {
                 return false;
             }
 
-
             ai.setMemoryAllocated(memoryPerAI);
             for (int j = baseIndex; j < baseIndex + ai.getAiCommands().size(); j++) {
                 getMemory().replace(j, ai.getAiCommands().get(j - baseIndex));

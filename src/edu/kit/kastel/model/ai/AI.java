@@ -67,8 +67,8 @@ public class AI {
      *
      * @return true is AI is stopped
      */
-    public boolean isStopped() {
-        return stopped;
+    public boolean stopped() {
+        return !stopped;
     }
 
     /**
@@ -140,7 +140,7 @@ public class AI {
     /**
      * Stops the AI.
      */
-    public void setStopped() {
+    public void stop() {
         stopped = true;
     }
 

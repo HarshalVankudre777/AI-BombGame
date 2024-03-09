@@ -64,7 +64,7 @@ public class NextCommand implements Command {
             }
             for (int j = 0; j < model.getRunningAI().size(); j++) {
                 model.updateAI();
-                if (!model.getCurrentAI().isStopped()) {
+                if (model.getCurrentAI().stopped()) {
                     break;
                 }
             }

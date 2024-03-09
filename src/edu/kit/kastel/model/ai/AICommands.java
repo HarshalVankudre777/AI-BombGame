@@ -6,103 +6,88 @@ import edu.kit.kastel.model.memory.MemoryCell;
 import java.util.List;
 
 /**
- * Implements methods for all the AI commands.
+ * Implements methods to execute AI commands on a cyclic memory structure.
+ * This class is responsible for performing actions defined by AI instructions,
+ * such as moving, adding, comparing cells, and more, based on the commands
+ * stored within the memory cells.
  *
  * @author uiiux
  */
-public  class AICommands {
+public class AICommands {
     private MemoryCell cell;
     private final CyclicLinkedList<MemoryCell> memory;
-    private  int cellPosition;
+    private int cellPosition;
+    private AI currentAI;
 
     /**
-     * Assigns the memory.
-     * @param memory memory
+     * Creates an instance of AICommands with the specified memory.
+     *
+     * @param memory The cyclic linked list representing the memory.
      */
     public AICommands(CyclicLinkedList<MemoryCell> memory) {
         this.memory = memory;
     }
 
     /**
-     * Stops the current AI.
-     * @param stoppedAIList list of stopped AI's
-     * @param currentAI     current AI
+     * Stops the execution of the current AI.
+     *
+     * @param stoppedAIList A list collecting the AIs that have been stopped.
      */
-    public void stop(List<AI> stoppedAIList, AI currentAI) {
-        if (currentAI.isStopped()) {
-            return;
+    public void stop(List<AI> stoppedAIList) {
+        if (currentAI.stopped()) {
+            stoppedAIList.add(currentAI);
+            currentAI.stop();
         }
-        stoppedAIList.add(currentAI);
-        currentAI.setStopped();
     }
 
     /**
-     * Copies the source cell to the target position.
-     * @param currentAI current AI
+     * Moves data from a source cell to a target cell based on the first and second arguments of the current cell.
      */
-    public void movR(AI currentAI) {
+    public void movR() {
         MemoryCell sourceCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
-
-        targetCell.setInstruction(sourceCell.getInstruction());
-        targetCell.setFirstArgument(sourceCell.getFirstArgument());
-        targetCell.setSecondArgument(sourceCell.getSecondArgument());
-
-        assignSymbol(currentAI, sourceCell, targetCell);
+        transferCellData(sourceCell, targetCell);
         cell = memory.getNext(cell);
-
     }
 
     /**
-     * Copies the source cell to the target position with the help of an Intermediate cell.
-     * @param currentAI current AI
+     * Moves data from a source cell to a target cell using an intermediate cell to determine the target's position.
      */
-    public void movI(AI currentAI) {
+    public void movI() {
         MemoryCell sourceCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell intermediateCell = memory.get(cellPosition + cell.getSecondArgument());
         int intermediateCellPosition = memory.getPosition(intermediateCell);
         MemoryCell targetCell = memory.get(intermediateCellPosition + intermediateCell.getSecondArgument());
-
-        targetCell.setInstruction(sourceCell.getInstruction());
-        targetCell.setFirstArgument(sourceCell.getFirstArgument());
-        targetCell.setSecondArgument(sourceCell.getSecondArgument());
-
-        assignSymbol(currentAI, sourceCell, targetCell);
+        transferCellData(sourceCell, targetCell);
         cell = memory.getNext(cell);
-
     }
 
     /**
-     * Adds the first Argument of cell to the second Argument.
-     * @param currentAI Current AI
+     * Adds the first argument of the current cell to its second argument and updates the cell accordingly.
      */
-    public void add(AI currentAI) {
-        int modifiedSecondArgument = cell.getFirstArgument() + cell.getSecondArgument();
-        cell.setSecondArgument(modifiedSecondArgument);
-        assignSymbol(currentAI, cell, cell);
+    public void add() {
+        int result = cell.getFirstArgument() + cell.getSecondArgument();
+        cell.setSecondArgument(result);
         cell = memory.getNext(cell);
-
-
     }
 
     /**
-     * Adds the first argument of cell to the second argument of target cell.
-     * @param currentAI current AI
+     * Adds the first argument of the current cell to the second argument of a target cell determined by the current cell's second argument.
      */
-    public void addR(AI currentAI) {
+    public void addR() {
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
-        targetCell.setSecondArgument(cell.getFirstArgument() + targetCell.getSecondArgument());
-        assignSymbol(currentAI, targetCell, targetCell);
+        int result = cell.getFirstArgument() + targetCell.getSecondArgument();
+        targetCell.setSecondArgument(result);
         cell = memory.getNext(cell);
     }
 
     /**
-     * Compares two cells the skips next cell if they are not equal.
+     * Compares the first argument of two cells and skips the next cell if they are not equal.
      */
     public void cmp() {
-        int entryA = memory.get(cellPosition + cell.getFirstArgument()).getFirstArgument();
-        int entryB = memory.get(cellPosition + cell.getSecondArgument()).getSecondArgument();
-        if (entryA != entryB) {
+        MemoryCell firstCell = memory.get(cellPosition + cell.getFirstArgument());
+        MemoryCell secondCell = memory.get(cellPosition + cell.getSecondArgument());
+        if (firstCell.getFirstArgument() != secondCell.getSecondArgument()) {
             cell = memory.getNext(memory.getNext(cell));
         } else {
             cell = memory.getNext(cell);
@@ -110,41 +95,49 @@ public  class AICommands {
     }
 
     /**
-     * Jumps to the specific cell.
+     * Jumps to a specific cell determined by the current cell's first argument.
      */
     public void jmp() {
-        cell =  memory.get(cellPosition + cell.getFirstArgument());
-
+        cell = memory.get(cellPosition + cell.getFirstArgument());
     }
 
     /**
-     * Jumps to the specific cell only if the second argument of target cell is 0.
+     * Jumps to a cell determined by the first argument if the second argument of the current cell is zero.
      */
     public void jmz() {
-        MemoryCell targetCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell checkCell = memory.get(cellPosition + cell.getSecondArgument());
         if (checkCell.getSecondArgument() == 0) {
-            cell = targetCell;
+            cell = memory.get(cellPosition + cell.getFirstArgument());
         } else {
             cell = memory.getNext(cell);
         }
     }
 
     /**
-     * Swaps the content of two cells.
-     * @param currentAI current AI
+     * Swaps the arguments of two cells specified by the current cell's arguments.
      */
-    public void swap(AI currentAI) {
-        MemoryCell first = memory.get(cellPosition + cell.getFirstArgument());
-        MemoryCell second = memory.get(cellPosition + cell.getSecondArgument());
-
-        int temp = first.getFirstArgument();
-        first.setFirstArgument(second.getSecondArgument());
-        second.setSecondArgument(temp);
-        assignSymbol(currentAI, first, first);
-        assignSymbol(currentAI, second, second);
-
+    public void swap() {
+        MemoryCell firstCell = memory.get(cellPosition + cell.getFirstArgument());
+        MemoryCell secondCell = memory.get(cellPosition + cell.getSecondArgument());
+        int temp = firstCell.getFirstArgument();
+        firstCell.setFirstArgument(secondCell.getSecondArgument());
+        secondCell.setSecondArgument(temp);
         cell = memory.getNext(cell);
+    }
+
+
+    /**
+     * Transfers data from the source cell to the target cell, including instruction and arguments.
+     * This method also updates the symbol of the target cell based on the AI's configuration.
+     *
+     * @param sourceCell The cell from which data is copied.
+     * @param targetCell The cell to which data is copied.
+     */
+    private void transferCellData(MemoryCell sourceCell, MemoryCell targetCell) {
+        targetCell.setInstruction(sourceCell.getInstruction());
+        targetCell.setFirstArgument(sourceCell.getFirstArgument());
+        targetCell.setSecondArgument(sourceCell.getSecondArgument());
+        assignSymbol(currentAI, sourceCell, targetCell);
     }
 
 
@@ -196,6 +189,14 @@ public  class AICommands {
         return memory.getPosition(cell);
     }
 
+    /**
+     * Sets the Current AI.
+     *
+     * @param currentAI Current AI
+     */
+    public void setCurrentAI(AI currentAI) {
+        this.currentAI = currentAI;
+    }
 
     private void assignSymbol(AI currentAI, MemoryCell checkCell, MemoryCell targetCell) {
         if (isBomb(checkCell)) {
