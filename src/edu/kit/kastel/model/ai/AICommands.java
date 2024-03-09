@@ -34,7 +34,7 @@ public class AICommands {
      * @param stoppedAIList A list collecting the AIs that have been stopped.
      */
     public void stop(List<AI> stoppedAIList) {
-        if (currentAI.stopped()) {
+        if (!currentAI.isStopped()) {
             stoppedAIList.add(currentAI);
             currentAI.stop();
         }
@@ -68,7 +68,7 @@ public class AICommands {
     public void add() {
         int result = cell.getFirstArgument() + cell.getSecondArgument();
         cell.setSecondArgument(result);
-        assignSymbol(currentAI, cell, cell);
+        assignSymbol(cell, cell);
         cell = memory.getNext(cell);
     }
 
@@ -79,7 +79,7 @@ public class AICommands {
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
         int result = cell.getFirstArgument() + targetCell.getSecondArgument();
         targetCell.setSecondArgument(result);
-        assignSymbol(currentAI, targetCell, targetCell);
+        assignSymbol(targetCell, targetCell);
         cell = memory.getNext(cell);
     }
 
@@ -90,7 +90,7 @@ public class AICommands {
         MemoryCell firstCell = memory.get(cellPosition + cell.getFirstArgument());
         MemoryCell secondCell = memory.get(cellPosition + cell.getSecondArgument());
         if (firstCell.getFirstArgument() != secondCell.getSecondArgument()) {
-            cell = memory.getNext(memory.getNext(cell));
+            cell = memory.getNext(memory.getNext(cell)); // Skipping next cell
         } else {
             cell = memory.getNext(cell);
         }
@@ -124,11 +124,12 @@ public class AICommands {
         int temp = firstCell.getFirstArgument();
         firstCell.setFirstArgument(secondCell.getSecondArgument());
         secondCell.setSecondArgument(temp);
-        assignSymbol(currentAI, firstCell, secondCell);
-        assignSymbol(currentAI, secondCell, firstCell);
+        assignSymbol(firstCell, secondCell);
+        assignSymbol(secondCell, firstCell);
         cell = memory.getNext(cell);
     }
 
+    // Additional helper methods and getters/setters below...
 
     /**
      * Transfers data from the source cell to the target cell, including instruction and arguments.
@@ -141,7 +142,7 @@ public class AICommands {
         targetCell.setInstruction(sourceCell.getInstruction());
         targetCell.setFirstArgument(sourceCell.getFirstArgument());
         targetCell.setSecondArgument(sourceCell.getSecondArgument());
-        assignSymbol(currentAI, sourceCell, targetCell);
+        assignSymbol(sourceCell, targetCell);
     }
 
 
@@ -193,16 +194,8 @@ public class AICommands {
         return memory.getPosition(cell);
     }
 
-    /**
-     * Sets the Current AI.
-     *
-     * @param currentAI Current AI
-     */
-    public void setCurrentAI(AI currentAI) {
-        this.currentAI = currentAI;
-    }
 
-    private void assignSymbol(AI currentAI, MemoryCell checkCell, MemoryCell targetCell) {
+    private void assignSymbol(MemoryCell checkCell, MemoryCell targetCell) {
         if (isBomb(checkCell)) {
             targetCell.setCurrentSymbol(currentAI.getBombSymbol());
             targetCell.setDefaultSymbol(currentAI.getBombSymbol());
@@ -211,5 +204,14 @@ public class AICommands {
             targetCell.setDefaultSymbol(currentAI.getDefaultSymbol());
         }
 
+    }
+
+    /**
+     * Sets the Current AI.
+     *
+     * @param currentAI Current AI
+     */
+    public void setCurrentAI(AI currentAI) {
+        this.currentAI = currentAI;
     }
 }

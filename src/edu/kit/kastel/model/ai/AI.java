@@ -67,8 +67,8 @@ public class AI {
      *
      * @return true is AI is stopped
      */
-    public boolean stopped() {
-        return !stopped;
+    public boolean isStopped() {
+        return stopped;
     }
 
     /**
