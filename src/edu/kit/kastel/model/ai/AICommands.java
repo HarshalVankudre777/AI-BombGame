@@ -129,8 +129,6 @@ public class AICommands {
         cell = memory.getNext(cell);
     }
 
-    // Additional helper methods and getters/setters below...
-
     /**
      * Transfers data from the source cell to the target cell, including instruction and arguments.
      * This method also updates the symbol of the target cell based on the AI's configuration.
