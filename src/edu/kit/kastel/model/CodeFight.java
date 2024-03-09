@@ -188,11 +188,12 @@ public class CodeFight {
 
     /**
      * Updates the current AI to the next AI in the cycle.
+     * Skips the AI if it is stopped.
      */
     public void updateAI() {
         currentAI = runningAI.getNext(currentAI);
-        if (currentAI.isStopped()) {
-            currentAI = runningAI.getNext(currentAI);
+        while (currentAI.isStopped()) {
+            updateAI();
         }
     }
 
