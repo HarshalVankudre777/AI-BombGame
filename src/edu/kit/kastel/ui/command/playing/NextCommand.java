@@ -58,10 +58,7 @@ public class NextCommand implements Command {
             }
         }
         for (int i = 0; i < cellsToExecute; i++) {
-            if (model.getStoppedAIList().contains(model.getCurrentAI())) {
-                model.updateAI();
-                continue;
-            }
+
             model.getCurrentAI().execute(model.getAiCommandExecutor());
             if (model.getStoppedAIList().size() == model.getRunningAI().size()) {
                 break;
@@ -86,7 +83,7 @@ public class NextCommand implements Command {
         Map<Integer, String> tempSymbols = new HashMap<>();
         for (int i = 0; i < model.getRunningAI().size(); i++) {
             AI ai = model.getRunningAI().get(i);
-            if (model.getStoppedAIList().contains(ai) || ai.equals(model.getCurrentAI())) {
+            if (model.getStoppedAIList().contains(ai)) {
                 continue;
             }
             int nextCellIndex = ai.getNextCellIndex();
