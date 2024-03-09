@@ -39,11 +39,13 @@ public  class AICommands {
      */
     public void movR(AI currentAI) {
         MemoryCell sourceCell = memory.get(cellPosition + cell.getFirstArgument());
-        MemoryCell clonedCell = sourceCell.duplicate();
         MemoryCell targetCell = memory.get(cellPosition + cell.getSecondArgument());
-        int targetPosition = memory.getPosition(targetCell);
-        assignSymbol(currentAI, sourceCell, clonedCell);
-        memory.replace(targetPosition, clonedCell);
+
+        targetCell.setInstruction(sourceCell.getInstruction());
+        targetCell.setFirstArgument(sourceCell.getFirstArgument());
+        targetCell.setSecondArgument(sourceCell.getSecondArgument());
+
+        assignSymbol(currentAI, sourceCell, targetCell);
         cell = memory.getNext(cell);
 
     }
@@ -54,15 +56,16 @@ public  class AICommands {
      */
     public void movI(AI currentAI) {
         MemoryCell sourceCell = memory.get(cellPosition + cell.getFirstArgument());
-        MemoryCell clonedCell = sourceCell.duplicate();
         MemoryCell intermediateCell = memory.get(cellPosition + cell.getSecondArgument());
         int intermediateCellPosition = memory.getPosition(intermediateCell);
         MemoryCell targetCell = memory.get(intermediateCellPosition + intermediateCell.getSecondArgument());
-        int targetPosition = memory.getPosition(targetCell);
-        assignSymbol(currentAI, sourceCell, clonedCell);
-        memory.replace(targetPosition, clonedCell);
-        MemoryCell nextCell = memory.getNext(cell);
-        cell = nextCell;
+
+        targetCell.setInstruction(sourceCell.getInstruction());
+        targetCell.setFirstArgument(sourceCell.getFirstArgument());
+        targetCell.setSecondArgument(sourceCell.getSecondArgument());
+
+        assignSymbol(currentAI, sourceCell, targetCell);
+        cell = memory.getNext(cell);
 
     }
 

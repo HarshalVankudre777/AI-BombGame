@@ -9,13 +9,13 @@ import edu.kit.kastel.model.ai.InstructionName;
  */
 public class MemoryCell {
 
-    private final InstructionName instruction;
+    private  InstructionName instruction;
+
     private int firstArgument;
     private int secondArgument;
     private String currentSymbol;
     private String bombSymbol;
     private String defaultSymbol;
-
     /**
      * Constructs a new MemoryCell with the specified instruction.
      *
@@ -117,6 +117,15 @@ public class MemoryCell {
      */
     public void setDefaultSymbol(String defaultSymbol) {
         this.defaultSymbol = defaultSymbol;
+    }
+
+    /**
+     * Sets the Instruction of the cell.
+     *
+     * @param instruction of the cell
+     */
+    public void setInstruction(InstructionName instruction) {
+        this.instruction = instruction;
     }
 
     /**
