@@ -29,6 +29,9 @@ public  class AICommands {
      * @param currentAI     current AI
      */
     public void stop(List<AI> stoppedAIList, AI currentAI) {
+        if (currentAI.isStopped()) {
+            return;
+        }
         stoppedAIList.add(currentAI);
         currentAI.setStopped();
     }

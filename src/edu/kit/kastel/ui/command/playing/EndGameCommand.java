@@ -22,6 +22,7 @@ public class EndGameCommand implements Command {
     private static final String STOPPED_AI_FORMAT = "Stopped AIs: %s";
     private static final String AI_NAME_SEPARATOR = ", ";
     private static final int LOWER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
+    private static final int LAST_SEPARATOR_INDEX = 2;
     private static final int UPPER_LIMIT_NUMBER_OF_ARGUMENTS = 0;
 
     /**
@@ -77,9 +78,8 @@ public class EndGameCommand implements Command {
         for (AI ai : tempList) {
             sb.append(ai.getName()).append(AI_NAME_SEPARATOR);
         }
-        sb.deleteCharAt(sb.length() - 2);
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
+        sb.deleteCharAt(sb.length() - LAST_SEPARATOR_INDEX);
+        return sb.toString().trim();
     }
 
     private String getStoppedAIList(List<AI> playingList, List<AI> stoppedAIList) {
@@ -93,9 +93,8 @@ public class EndGameCommand implements Command {
         for (AI ai : temp) {
             sb.append(ai.getName()).append(AI_NAME_SEPARATOR);
         }
-        sb.deleteCharAt(sb.length() - 2);
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
+        sb.deleteCharAt(sb.length() - LAST_SEPARATOR_INDEX);
+        return sb.toString().trim();
     }
 
 
