@@ -195,6 +195,9 @@ public class CodeFight {
         if (currentAI.isStopped()) {
             currentAI = runningAI.getNext(currentAI);
         }
+        if (currentAI.isStopped()) {
+            currentAI = runningAI.getNext(currentAI);
+        }
     }
 
     /**
