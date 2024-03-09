@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class CyclicLinkedList<T> {
     private static final String LIST_EMPTY_EXCEPTION = "List is empty";
-    private static final String NOT_FOUNT_IN_LIST_EXCEPTION = "Data not found in List.";
+    private static final String DATA_NOT_FOUND_IN_LIST = "Data not found in List.";
     private static final String INVALID_POSITION_EXCEPTION = "Invalid position: ";
     private Node<T> head;
     private int size;
@@ -111,7 +111,7 @@ public class CyclicLinkedList<T> {
             current = current.next;
         } while (current != head);
 
-        throw new NoSuchElementException(NOT_FOUNT_IN_LIST_EXCEPTION);
+        throw new NoSuchElementException(DATA_NOT_FOUND_IN_LIST);
     }
 
     /**
