@@ -9,7 +9,9 @@ import edu.kit.kastel.ui.command.CommandResult;
 import edu.kit.kastel.ui.command.CommandResultType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This commands executes the next steps.
@@ -79,8 +81,18 @@ public class NextCommand implements Command {
         }
         return new CommandResult(CommandResultType.SUCCESS, null);
     }
-    
+
     private void updateNextSymbols(CodeFight model) {
+        Map<Integer, String> tempSymbols = new HashMap<>();
+        for (int i = 0; i < model.getRunningAI().size(); i++) {
+            AI ai = model.getRunningAI().get(i);
+            if (model.getStoppedAIList().contains(ai) || ai.equals(model.getCurrentAI())) {
+                continue;
+            }
+            int nextCellIndex = ai.getNextCellIndex();
+            tempSymbols.put(nextCellIndex, model.getOtherSymbol());
+        }
+
         for (int i = 0; i < model.getRunningAI().size(); i++) {
             AI ai = model.getRunningAI().get(i);
             MemoryCell nextCell = model.getMemory().get(ai.getNextCellIndex());
@@ -89,11 +101,13 @@ public class NextCommand implements Command {
             }
             if (ai.equals(model.getCurrentAI())) {
                 nextCell.setCurrentSymbol(model.getCurrentSymbol());
-            } else {
-                nextCell.setCurrentSymbol(model.getOtherSymbol());
+                tempSymbols.remove(ai.getNextCellIndex());
+            } else if (tempSymbols.containsKey(ai.getNextCellIndex())) {
+                nextCell.setCurrentSymbol(tempSymbols.get(ai.getNextCellIndex()));
             }
         }
     }
+
 
     private String parseOutput(List<AI> stoppedAIList) {
         StringBuilder sb = new StringBuilder();
