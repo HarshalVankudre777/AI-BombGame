@@ -192,7 +192,7 @@ public class CodeFight {
      */
     public void updateAI() {
         currentAI = runningAI.getNext(currentAI);
-        while (currentAI.isStopped()) {
+        if (currentAI.isStopped()) {
             currentAI = runningAI.getNext(currentAI);
         }
     }
